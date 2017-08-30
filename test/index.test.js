@@ -54,6 +54,10 @@
       assert.isFalse(isValidSemVer("1.1."));
     });
 
+    it("should be false if negative integer", () => {
+      assert.isFalse(isValidSemVer("1.0.-1"));
+    });
+
     it("should be true", () => {
       assert.isTrue(isValidSemVer("1.0.0-a"));
     });
@@ -76,6 +80,10 @@
 
     it("should be false if pre version part is not separeted by hyphen", () => {
       assert.isFalse(isValidSemVer("1.0.0a"));
+    });
+
+    it("should be false if pre version part is not separeted by hyphen", () => {
+      assert.isFalse(isValidSemVer("1.0.0.a.1"));
     });
 
     it("should be false if integer contains leading zero", () => {
@@ -227,20 +235,44 @@
     });
 
     it("should equal", () => {
-      assert.deepEqual(parseSemVer("1"), {
-        version: "1",
-        matches: false,
-        major: undefined,
-        minor: undefined,
-        patch: undefined,
+      assert.deepEqual(parseSemVer("1.0.0"), {
+        version: "1.0.0",
+        matches: true,
+        major: 1,
+        minor: 0,
+        patch: 0,
         pre: undefined,
         build: undefined,
       });
     });
 
     it("should equal", () => {
-      assert.deepEqual(parseSemVer("1.0.0.a.1"), {
-        version: "1.0.0.a.1",
+      assert.deepEqual(parseSemVer("0.0.0"), {
+        version: "0.0.0",
+        matches: true,
+        major: 0,
+        minor: 0,
+        patch: 0,
+        pre: undefined,
+        build: undefined,
+      });
+    });
+
+    it("should equal", () => {
+      assert.deepEqual(parseSemVer("1.0.99999"), {
+        version: "1.0.99999",
+        matches: true,
+        major: 1,
+        minor: 0,
+        patch: 99999,
+        pre: undefined,
+        build: undefined,
+      });
+    });
+
+    it("should equal", () => {
+      assert.deepEqual(parseSemVer("1"), {
+        version: "1",
         matches: false,
         major: undefined,
         minor: undefined,
@@ -263,18 +295,6 @@
     });
 
     it("should equal", () => {
-      assert.deepEqual(parseSemVer("1.0.0"), {
-        version: "1.0.0",
-        matches: true,
-        major: 1,
-        minor: 0,
-        patch: 0,
-        pre: undefined,
-        build: undefined,
-      });
-    });
-
-    it("should equal", () => {
       assert.deepEqual(parseSemVer("1.0.0.0"), {
         version: "1.0.0.0",
         matches: false,
@@ -287,8 +307,44 @@
     });
 
     it("should equal", () => {
-      assert.deepEqual(parseSemVer("1.0a1"), {
-        version: "1.0a1",
+      assert.deepEqual(parseSemVer("1.0.01"), {
+        version: "1.0.01",
+        matches: false,
+        major: undefined,
+        minor: undefined,
+        patch: undefined,
+        pre: undefined,
+        build: undefined,
+      });
+    });
+
+    it("should equal", () => {
+      assert.deepEqual(parseSemVer("1.0.-1"), {
+        version: "1.0.-1",
+        matches: false,
+        major: undefined,
+        minor: undefined,
+        patch: undefined,
+        pre: undefined,
+        build: undefined,
+      });
+    });
+
+    it("should equal", () => {
+      assert.deepEqual(parseSemVer(".0.1"), {
+        version: ".0.1",
+        matches: false,
+        major: undefined,
+        minor: undefined,
+        patch: undefined,
+        pre: undefined,
+        build: undefined,
+      });
+    });
+
+    it("should equal", () => {
+      assert.deepEqual(parseSemVer("1.0."), {
+        version: "1.0.",
         matches: false,
         major: undefined,
         minor: undefined,
@@ -311,14 +367,38 @@
     });
 
     it("should equal", () => {
-      assert.deepEqual(parseSemVer("1.0.0-a.0+1.x"), {
-        version: "1.0.0-a.0+1.x",
+      assert.deepEqual(parseSemVer("1.0.0-0.a"), {
+        version: "1.0.0-0.a",
         matches: true,
         major: 1,
         minor: 0,
         patch: 0,
-        pre: ["a", 0],
-        build: [1, "x"],
+        pre: [0, "a"],
+        build: undefined,
+      });
+    });
+
+    it("should equal", () => {
+      assert.deepEqual(parseSemVer("1.0.0a"), {
+        version: "1.0.0a",
+        matches: false,
+        major: undefined,
+        minor: undefined,
+        patch: undefined,
+        pre: undefined,
+        build: undefined,
+      });
+    });
+
+    it("should equal", () => {
+      assert.deepEqual(parseSemVer("1.0.0.a.1"), {
+        version: "1.0.0.a.1",
+        matches: false,
+        major: undefined,
+        minor: undefined,
+        patch: undefined,
+        pre: undefined,
+        build: undefined,
       });
     });
 
@@ -330,6 +410,18 @@
         minor: 0,
         patch: 0,
         pre: undefined,
+        build: [1, "x"],
+      });
+    });
+
+    it("should equal", () => {
+      assert.deepEqual(parseSemVer("1.0.0-a.0+1.x"), {
+        version: "1.0.0-a.0+1.x",
+        matches: true,
+        major: 1,
+        minor: 0,
+        patch: 0,
+        pre: ["a", 0],
         build: [1, "x"],
       });
     });
