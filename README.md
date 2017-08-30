@@ -6,7 +6,7 @@
 
 Parse, determine, compare [SemVer](http://semver.org/ "Semantic Versioning 2.0.0 | Semantic Versioning").
 
-NOTE: still WIP
+NOTE: WIP
 
 ## API
 
