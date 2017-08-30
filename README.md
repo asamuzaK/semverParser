@@ -1,5 +1,4 @@
 [![Build Status](https://travis-ci.org/asamuzaK/semverParser.svg?branch=master)](https://travis-ci.org/asamuzaK/semverParser)
-[![dependencies Status](https://david-dm.org/asamuzaK/semverParser/status.svg)](https://david-dm.org/asamuzaK/semverParser)
 [![devDependency Status](https://david-dm.org/asamuzaK/semverParser/dev-status.svg)](https://david-dm.org/asamuzaK/semverParser#info=devDependencies)
 
 # SemVer Parser
