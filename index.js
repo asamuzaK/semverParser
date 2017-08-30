@@ -18,7 +18,7 @@
   const BUILD = `${BUILD_PART}(?:\\.${BUILD_PART})*`;
   const SEMVER = `(${INT}(?:\\.${INT}){2})(?:-(${PRE}))?(?:\\+(${BUILD}))?`;
   const REGEXP_INT = new RegExp(`^${INT}$`);
-  const REGEXP_SEMVER = new RegExp(`^${SEMVER}$`);
+  const REGEXP_SEMVER = new RegExp(`^v?${SEMVER}$`);
 
   /**
    * is valid SemVer string
