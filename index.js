@@ -61,9 +61,21 @@
       const [, vRel, vPre] = version.match(REGEXP_SEMVER);
       const [, bRel, bPre] = base.match(REGEXP_SEMVER);
       const [vMajor, vMinor, vPatch] =
-        vRel.split(".").map(part => parseInt(part, BASE));
+        vRel.split(".").map(part => {
+          part = parseInt(part, BASE);
+          if (!Number.isSafeInteger(part)) {
+            throw new RangeError(`${part} exceeds ${Number.MAX_SAFE_INTEGER}.`);
+          }
+          return part;
+        });
       const [bMajor, bMinor, bPatch] =
-        bRel.split(".").map(part => parseInt(part, BASE));
+        bRel.split(".").map(part => {
+          part = parseInt(part, BASE);
+          if (!Number.isSafeInteger(part)) {
+            throw new RangeError(`${part} exceeds ${Number.MAX_SAFE_INTEGER}.`);
+          }
+          return part;
+        });
       if (vMajor > bMajor) {
         result = 1;
       } else if (vMajor < bMajor) {
@@ -86,12 +98,22 @@
         const vPreParts = vPre.split(".").map(part => {
           if (REGEXP_INT.test(part)) {
             part = parseInt(part, BASE);
+            if (!Number.isSafeInteger(part)) {
+              throw new RangeError(
+                `${part} exceeds ${Number.MAX_SAFE_INTEGER}.`
+              );
+            }
           }
           return part;
         });
         const bPreParts = bPre.split(".").map(part => {
           if (REGEXP_INT.test(part)) {
             part = parseInt(part, BASE);
+            if (!Number.isSafeInteger(part)) {
+              throw new RangeError(
+                `${part} exceeds ${Number.MAX_SAFE_INTEGER}.`
+              );
+            }
           }
           return part;
         });
@@ -148,11 +170,22 @@
     let major, minor, patch, pre, build;
     if (matches) {
       const [, vRel, vPre, vBuild] = version.match(REGEXP_SEMVER);
-      [major, minor, patch] = vRel.split(".").map(part => parseInt(part, BASE));
+      [major, minor, patch] = vRel.split(".").map(part => {
+        part = parseInt(part, BASE);
+        if (!Number.isSafeInteger(part)) {
+          throw new RangeError(`${part} exceeds ${Number.MAX_SAFE_INTEGER}.`);
+        }
+        return part;
+      });
       if (vPre) {
         pre = vPre.split(".").map(part => {
           if (REGEXP_INT.test(part)) {
             part = parseInt(part, BASE);
+            if (!Number.isSafeInteger(part)) {
+              throw new RangeError(
+                `${part} exceeds ${Number.MAX_SAFE_INTEGER}.`
+              );
+            }
           }
           return part;
         });
@@ -161,6 +194,11 @@
         build = vBuild.split(".").map(part => {
           if (REGEXP_INT.test(part)) {
             part = parseInt(part, BASE);
+            if (!Number.isSafeInteger(part)) {
+              throw new RangeError(
+                `${part} exceeds ${Number.MAX_SAFE_INTEGER}.`
+              );
+            }
           }
           return part;
         });

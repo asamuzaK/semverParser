@@ -42,7 +42,7 @@
       assert.isFalse(isValidSemVer("1.0.0.0"));
     });
 
-    it("should be false if version part contains leading zero integer", () => {
+    it("should be false if version part contains leading 0 integer", () => {
       assert.isFalse(isValidSemVer("1.0.01"));
     });
 
@@ -78,6 +78,14 @@
       assert.isTrue(isValidSemVer("1.0.0-0.a.0"));
     });
 
+    it("should be true", () => {
+      assert.isTrue(isValidSemVer("1.0.0-a1b1"));
+    });
+
+    it("should be true", () => {
+      assert.isTrue(isValidSemVer("1.0.0-1a1b"));
+    });
+
     it("should be false if pre part is not separeted by hyphen", () => {
       assert.isFalse(isValidSemVer("1.0.0a"));
     });
@@ -86,7 +94,7 @@
       assert.isFalse(isValidSemVer("1.0.0.a.1"));
     });
 
-    it("should be false if pre part contains leading zero integer", () => {
+    it("should be false if pre part contains leading 0 integer", () => {
       assert.isFalse(isValidSemVer("1.0.0-0.a.01"));
     });
 
@@ -106,16 +114,12 @@
       assert.isTrue(isValidSemVer("1.0.0+20130313144700"));
     });
 
-    it("should be true even if build contains leading zero integer", () => {
+    it("should be true even if build contains leading 0 integer", () => {
       assert.isTrue(isValidSemVer("1.0.0-a+01"));
     });
 
     it("should be true even if build contains negative integer", () => {
       assert.isTrue(isValidSemVer("1.0.0-a+-1"));
-    });
-
-    it("should be true", () => {
-      assert.isTrue(isValidSemVer("1.0.0-a1b1"));
     });
   });
 
@@ -156,6 +160,18 @@
       assert.throws(() => compareSemVer("1.0.0", "1.0"));
     });
 
+    it("should throw", () => {
+      assert.throws(() => compareSemVer("1.0.0", "1.0.9007199254740992"));
+    });
+
+    it("should throw", () => {
+      assert.throws(() => compareSemVer("1.0.9007199254740992", "1.0.0"));
+    });
+
+    it("should throw", () => {
+      assert.throws(() => compareSemVer("1.0.0-1", "1.0.0-9007199254740992"));
+    });
+
     it("should be equal", () => {
       assert.strictEqual(compareSemVer("1.0.0", "1.0.0"), 0);
     });
@@ -168,6 +184,10 @@
       assert.strictEqual(compareSemVer("1.0.0", "1.0.0+1"), 0);
     });
 
+    it("should be equal", () => {
+      assert.strictEqual(compareSemVer("1.0.0+9007199254740992", "1.0.0+1"), 0);
+    });
+
     it("should be greater than 0", () => {
       assert.isAbove(compareSemVer("1.1.0", "1.0.0"), 0);
     });
@@ -177,7 +197,15 @@
     });
 
     it("should be greater than 0", () => {
+      assert.isAbove(compareSemVer("1.0.9007199254740991", "1.0.0"), 0);
+    });
+
+    it("should be greater than 0", () => {
       assert.isAbove(compareSemVer("1.0.0", "1.0.0-a"), 0);
+    });
+
+    it("should be greater than 0", () => {
+      assert.isAbove(compareSemVer("1.0.0", "1.0.0-9007199254740992"), 0);
     });
 
     it("should be greater than 0", () => {
@@ -206,6 +234,30 @@
 
     it("should be less than 0", () => {
       assert.isBelow(compareSemVer("1.0.0-a", "1.0.0"), 0);
+    });
+
+    it("should be less than 0", () => {
+      assert.isBelow(compareSemVer("1.0.0-a", "1.0.0-alpha"), 0);
+    });
+
+    it("should be less than 0", () => {
+      assert.isBelow(compareSemVer("1.0.0-alpha", "1.0.0-b"), 0);
+    });
+
+    it("should be less than 0", () => {
+      assert.isBelow(compareSemVer("1.0.0-b", "1.0.0-beta"), 0);
+    });
+
+    it("should be less than 0", () => {
+      assert.isBelow(compareSemVer("1.0.0-beta", "1.0.0-pre"), 0);
+    });
+
+    it("should be less than 0", () => {
+      assert.isBelow(compareSemVer("1.0.0-pre", "1.0.0-rc"), 0);
+    });
+
+    it("should be less than 0", () => {
+      assert.isBelow(compareSemVer("1.0.0-rc", "1.0.0"), 0);
     });
 
     it("should be less than 0", () => {
@@ -246,6 +298,18 @@
       assert.throws(() => parseSemVer());
     });
 
+    it("should throw", () => {
+      assert.throws(() => parseSemVer("1.0.9007199254740992"));
+    });
+
+    it("should throw", () => {
+      assert.throws(() => parseSemVer("1.0.0-9007199254740992"));
+    });
+
+    it("should throw", () => {
+      assert.throws(() => parseSemVer("1.0.0+9007199254740992"));
+    });
+
     it("should equal", () => {
       assert.deepEqual(parseSemVer("1.0.0"), {
         version: "1.0.0",
@@ -271,12 +335,12 @@
     });
 
     it("should equal", () => {
-      assert.deepEqual(parseSemVer("1.0.99999"), {
-        version: "1.0.99999",
+      assert.deepEqual(parseSemVer("1.0.9007199254740991"), {
+        version: "1.0.9007199254740991",
         matches: true,
         major: 1,
         minor: 0,
-        patch: 99999,
+        patch: 9007199254740991,
         pre: undefined,
         build: undefined,
       });
@@ -391,6 +455,18 @@
     });
 
     it("should equal", () => {
+      assert.deepEqual(parseSemVer("1.0.0-0.a.9007199254740991"), {
+        version: "1.0.0-0.a.9007199254740991",
+        matches: true,
+        major: 1,
+        minor: 0,
+        patch: 0,
+        pre: [0, "a", 9007199254740991],
+        build: undefined,
+      });
+    });
+
+    it("should equal, negative integer in pre is parsed as string", () => {
       assert.deepEqual(parseSemVer("1.0.0-0.a.-1"), {
         version: "1.0.0-0.a.-1",
         matches: true,
@@ -447,6 +523,42 @@
         patch: 0,
         pre: ["a", 0],
         build: [1, "x"],
+      });
+    });
+
+    it("should equal", () => {
+      assert.deepEqual(parseSemVer("1.0.0-a.0+1.x.9007199254740991"), {
+        version: "1.0.0-a.0+1.x.9007199254740991",
+        matches: true,
+        major: 1,
+        minor: 0,
+        patch: 0,
+        pre: ["a", 0],
+        build: [1, "x", 9007199254740991],
+      });
+    });
+
+    it("should equal, leading 0 integer in build is parsed as string", () => {
+      assert.deepEqual(parseSemVer("1.0.0-a.0+001"), {
+        version: "1.0.0-a.0+001",
+        matches: true,
+        major: 1,
+        minor: 0,
+        patch: 0,
+        pre: ["a", 0],
+        build: ["001"],
+      });
+    });
+
+    it("should equal, negative integer in build is parsed as string", () => {
+      assert.deepEqual(parseSemVer("1.0.0-a.0+-1.1"), {
+        version: "1.0.0-a.0+-1.1",
+        matches: true,
+        major: 1,
+        minor: 0,
+        patch: 0,
+        pre: ["a", 0],
+        build: ["-1", 1],
       });
     });
 
