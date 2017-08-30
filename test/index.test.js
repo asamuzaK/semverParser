@@ -46,7 +46,7 @@
       assert.isFalse(isValidSemVer("1.0"));
     });
 
-    it("should be false if there is more than 4 version parts", () => {
+    it("should be false if there is more than 3 version parts", () => {
       assert.isFalse(isValidSemVer("1.0.0.0"));
     });
 
