@@ -1,5 +1,7 @@
 /**
  * index.js
+ * @see {@link http://semver.org/|Semantic Versioning}
+ * @see {@link https://github.com/mojombo/semver/|mojombo/semver}
  */
 "use strict";
 {
@@ -10,12 +12,11 @@
   const BASE = 10;
   const INT = "(?:0|[1-9]\\d*)";
   const ALPHA_NUM = "(?:[A-z-](?:[A-z\\d-]+)?|[A-z\\d-]+[A-z-](?:[A-z\\d-]+)?)";
-  const PRE_IDENT = `(?:${ALPHA_NUM}|${INT})`;
-  const PRE = `(?:${PRE_IDENT}(?:\\.${PRE_IDENT})*)`;
-  const BUILD_IDENT = `(?:${ALPHA_NUM}|\\d+)`;
-  const BUILD = `(?:${BUILD_IDENT}(?:\\.${BUILD_IDENT})*)`;
-  const SEMVER =
-    `(${INT}(?:\\.${INT}){2})(?:-(${PRE}))?(?:\\+(${BUILD}))?`;
+  const PRE_PART = `(?:${ALPHA_NUM}|${INT})`;
+  const PRE = `${PRE_PART}(?:\\.${PRE_PART})*`;
+  const BUILD_PART = `(?:${ALPHA_NUM}|\\d+)`;
+  const BUILD = `${BUILD_PART}(?:\\.${BUILD_PART})*`;
+  const SEMVER = `(${INT}(?:\\.${INT}){2})(?:-(${PRE}))?(?:\\+(${BUILD}))?`;
   const REGEXP_INT = new RegExp(`^${INT}$`);
   const REGEXP_SEMVER = new RegExp(`^${SEMVER}$`);
 
