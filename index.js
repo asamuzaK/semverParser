@@ -19,47 +19,52 @@
   const SEMVER = `(${INT}(?:\\.${INT}){2})(?:-(${PRE}))?(?:\\+(${BUILD}))?`;
   const REGEXP_INT = new RegExp(`^${INT}$`);
   const REGEXP_SEMVER = new RegExp(`^v?${SEMVER}$`);
+  const REGEXP_SEMVER_STRICT = new RegExp(`^${SEMVER}$`);
 
   /**
    * is valid SemVer string
    * @param {string} version - version string
+   * @param {boolean} [strict] - reject "v" prefixed
    * @returns {boolean} - result
    */
-  const isValidSemVer = version => {
+  const isValidSemVer = (version, strict = false) => {
     if (!isString(version)) {
       throw new TypeError(`Expected String but got ${getType(version)}`);
     }
-    return REGEXP_SEMVER.test(version);
+    const reg = strict && REGEXP_SEMVER_STRICT || REGEXP_SEMVER;
+    return reg.test(version);
   };
 
   /**
    * compare SemVer
    * @param {string} version - version string
    * @param {string} base - base version string to compare from
+   * @param {boolean} [strict] - reject "v" prefixed
    * @returns {number}
    *   - -1 or negative number, if version is less than base version
    *     0, if version is equal to base version
    *     1 or positive number, if version is greater than base version
    */
-  const compareSemVer = (version, base) => {
+  const compareSemVer = (version, base, strict = false) => {
     if (!isString(version)) {
       throw new TypeError(`Expected String but got ${getType(version)}`);
     }
     if (!isString(base)) {
       throw new TypeError(`Expected String but got ${getType(base)}`);
     }
-    if (!isValidSemVer(version)) {
+    if (!isValidSemVer(version, !!strict)) {
       throw new Error(`${version} is not valid version string.`);
     }
-    if (!isValidSemVer(base)) {
+    if (!isValidSemVer(base, !!strict)) {
       throw new Error(`${base} is not valid version string.`);
     }
+    const reg = strict && REGEXP_SEMVER_STRICT || REGEXP_SEMVER;
     let result;
     if (version === base) {
       result = 0;
     } else {
-      const [, vRel, vPre] = version.match(REGEXP_SEMVER);
-      const [, bRel, bPre] = base.match(REGEXP_SEMVER);
+      const [, vRel, vPre] = version.match(reg);
+      const [, bRel, bPre] = base.match(reg);
       const [vMajor, vMinor, vPatch] =
         vRel.split(".").map(part => {
           part = parseInt(part, BASE);
@@ -152,6 +157,7 @@
   /**
    * parse SemVer string
    * @param {string} version - version string
+   * @param {boolean} [strict] - reject "v" prefixed
    * @returns {Object}
    *   - result which contains properties below
    *     version {string} - given version string
@@ -162,14 +168,15 @@
    *     pre {Array<string|number>|undefined} - pre release version in array
    *     build {Array<string|number>|undefined} - build ID in array
    */
-  const parseSemVer = version => {
+  const parseSemVer = (version, strict = false) => {
     if (!isString(version)) {
       throw new TypeError(`Expected String but got ${getType(version)}`);
     }
-    const matches = isValidSemVer(version);
+    const matches = isValidSemVer(version, !!strict);
     let major, minor, patch, pre, build;
     if (matches) {
-      const [, vRel, vPre, vBuild] = version.match(REGEXP_SEMVER);
+      const reg = strict && REGEXP_SEMVER_STRICT || REGEXP_SEMVER;
+      const [, vRel, vPre, vBuild] = version.match(reg);
       [major, minor, patch] = vRel.split(".").map(part => {
         part = parseInt(part, BASE);
         if (!Number.isSafeInteger(part)) {

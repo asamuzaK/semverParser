@@ -34,6 +34,10 @@
       assert.isTrue(isValidSemVer("v1.0.0"));
     });
 
+    it("should be false if v prefixed and 2nd param is true", () => {
+      assert.isFalse(isValidSemVer("v1.0.0", true));
+    });
+
     it("should be false if version part lacks one of x.y.z", () => {
       assert.isFalse(isValidSemVer("0"));
     });
@@ -182,6 +186,22 @@
 
     it("should be equal", () => {
       assert.strictEqual(compareSemVer("v1.0.0", "1.0.0"), 0);
+    });
+
+    it("should be equal", () => {
+      assert.strictEqual(compareSemVer("1.0.0", "v1.0.0"), 0);
+    });
+
+    it("should be equal", () => {
+      assert.strictEqual(compareSemVer("v1.0.0", "v1.0.0"), 0);
+    });
+
+    it("should throw", () => {
+      assert.throws(() => compareSemVer("v1.0.0", "1.0.0", true));
+    });
+
+    it("should throw", () => {
+      assert.throws(() => compareSemVer("1.0.0", "v1.0.0", true));
     });
 
     it("should be equal", () => {
@@ -349,6 +369,18 @@
         major: 1,
         minor: 0,
         patch: 0,
+        pre: undefined,
+        build: undefined,
+      });
+    });
+
+    it("should equal", () => {
+      assert.deepEqual(parseSemVer("v1.0.0", true), {
+        version: "v1.0.0",
+        matches: false,
+        major: undefined,
+        minor: undefined,
+        patch: undefined,
         pre: undefined,
         build: undefined,
       });
