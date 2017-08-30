@@ -42,7 +42,7 @@
       assert.isFalse(isValidSemVer("1.0.0.0"));
     });
 
-    it("should be false if integer contains leading zero", () => {
+    it("should be false if version part contains leading zero integer", () => {
       assert.isFalse(isValidSemVer("1.0.01"));
     });
 
@@ -54,7 +54,7 @@
       assert.isFalse(isValidSemVer("1.1."));
     });
 
-    it("should be false if negative integer", () => {
+    it("should be false if version part contains negative integer", () => {
       assert.isFalse(isValidSemVer("1.0.-1"));
     });
 
@@ -78,19 +78,19 @@
       assert.isTrue(isValidSemVer("1.0.0-0.a.0"));
     });
 
-    it("should be false if pre version part is not separeted by hyphen", () => {
+    it("should be false if pre part is not separeted by hyphen", () => {
       assert.isFalse(isValidSemVer("1.0.0a"));
     });
 
-    it("should be false if pre version part is not separeted by hyphen", () => {
+    it("should be false if pre part is not separeted by hyphen", () => {
       assert.isFalse(isValidSemVer("1.0.0.a.1"));
     });
 
-    it("should be false if integer contains leading zero", () => {
+    it("should be false if pre part contains leading zero integer", () => {
       assert.isFalse(isValidSemVer("1.0.0-0.a.01"));
     });
 
-    it("should be true even if pre release contains negative integer", () => {
+    it("should be true even if pre part contains negative integer", () => {
       assert.isTrue(isValidSemVer("1.0.0-0.a.-1"));
     });
 
@@ -106,8 +106,8 @@
       assert.isTrue(isValidSemVer("1.0.0+20130313144700"));
     });
 
-    it("should be false if integer contains leading zero", () => {
-      assert.isFalse(isValidSemVer("1.0.0-a+01"));
+    it("should be true even if build contains leading zero integer", () => {
+      assert.isTrue(isValidSemVer("1.0.0-a+01"));
     });
 
     it("should be true even if build contains negative integer", () => {

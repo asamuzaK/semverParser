@@ -8,12 +8,16 @@
 
   /* constants */
   const BASE = 10;
-  const PART_INT = "(?:0|[1-9]\\d*)";
-  const PART_OPT =
-    "(?:0(?:[A-z-]+[A-z\\d-]*)?|[1-9]\\d*(?:[A-z\\d-]*)?|[A-z-]+(?:[A-z\\d-]*)?)";
-  const REGEXP_INT = new RegExp(`^${PART_INT}$`);
-  const REGEXP_SEMVER =
-    new RegExp(`^(${PART_INT}(?:\\.${PART_INT}){2})(?:-(${PART_OPT}(?:\\.${PART_OPT})*))?(?:\\+(${PART_OPT}(?:\\.${PART_OPT})*))?$`);
+  const INT = "(?:0|[1-9]\\d*)";
+  const ALPHA_NUM = "(?:[A-z-](?:[A-z\\d-]+)?|[A-z\\d-]+[A-z-](?:[A-z\\d-]+)?)";
+  const PRE_IDENT = `(?:${ALPHA_NUM}|${INT})`;
+  const PRE = `(?:${PRE_IDENT}(?:\\.${PRE_IDENT})*)`;
+  const BUILD_IDENT = `(?:${ALPHA_NUM}|\\d+)`;
+  const BUILD = `(?:${BUILD_IDENT}(?:\\.${BUILD_IDENT})*)`;
+  const SEMVER =
+    `(${INT}(?:\\.${INT}){2})(?:-(${PRE}))?(?:\\+(${BUILD}))?`;
+  const REGEXP_INT = new RegExp(`^${INT}$`);
+  const REGEXP_SEMVER = new RegExp(`^${SEMVER}$`);
 
   /**
    * is valid SemVer string
