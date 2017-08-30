@@ -11,10 +11,9 @@
   const PART_INT = "(?:0|[1-9]\\d*)";
   const PART_OPT =
     "(?:0(?:[A-z-]+[A-z\\d-]*)?|[1-9]\\d*(?:[A-z\\d-]*)?|[A-z-]+(?:[A-z\\d-]*)?)";
-  const SEMVER =
-    `(${PART_INT}(?:\\.${PART_INT}){2})(?:-(${PART_OPT}(?:\\.${PART_OPT})*))?(?:\\+(${PART_OPT}(?:\\.${PART_OPT})*))?`;
   const REGEXP_INT = new RegExp(`^${PART_INT}$`);
-  const REGEXP_SEMVER = new RegExp(`^(?:${SEMVER})$`);
+  const REGEXP_SEMVER =
+    new RegExp(`^(${PART_INT}(?:\\.${PART_INT}){2})(?:-(${PART_OPT}(?:\\.${PART_OPT})*))?(?:\\+(${PART_OPT}(?:\\.${PART_OPT})*))?$`);
 
   /**
    * is valid SemVer string
