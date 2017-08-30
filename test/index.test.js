@@ -90,6 +90,10 @@
       assert.isFalse(isValidSemVer("1.0.0-0.a.01"));
     });
 
+    it("should be true even if pre release contains negative integer", () => {
+      assert.isTrue(isValidSemVer("1.0.0-0.a.-1"));
+    });
+
     it("should be true", () => {
       assert.isTrue(isValidSemVer("1.0.0-a+1"));
     });
@@ -104,6 +108,10 @@
 
     it("should be false if integer contains leading zero", () => {
       assert.isFalse(isValidSemVer("1.0.0-a+01"));
+    });
+
+    it("should be true even if build contains negative integer", () => {
+      assert.isTrue(isValidSemVer("1.0.0-a+-1"));
     });
 
     it("should be true", () => {
@@ -182,6 +190,10 @@
 
     it("should be greater than 0", () => {
       assert.isAbove(compareSemVer("1.0.0-a.b", "1.0.0-a.1"), 0);
+    });
+
+    it("should be greater than 0", () => {
+      assert.isAbove(compareSemVer("1.0.0-a.-1", "1.0.0-a.1"), 0);
     });
 
     it("should be less than 0", () => {
@@ -374,6 +386,18 @@
         minor: 0,
         patch: 0,
         pre: [0, "a"],
+        build: undefined,
+      });
+    });
+
+    it("should equal", () => {
+      assert.deepEqual(parseSemVer("1.0.0-0.a.-1"), {
+        version: "1.0.0-0.a.-1",
+        matches: true,
+        major: 1,
+        minor: 0,
+        patch: 0,
+        pre: [0, "a", "-1"],
         build: undefined,
       });
     });
