@@ -1,0 +1,26 @@
+{
+  "name": "semver-parser",
+  "description": "SemVer parser. parse, determine, compare SemVer.",
+  "author": "asamuzaK",
+  "homepage": "https://github.com/asamuzaK/semverParser",
+  "bugs": "https://github.com/asamuzaK/semverParser/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/asamuzaK/semverParser.git"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "main": "./index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "mocha test"
+  },
+  "devDependencies": {
+    "chai": "^4.1.1",
+    "eslint": "^4.5.0",
+    "mocha": "^3.5.0"
+  },
+  "version": "0.0.1"
+}
