@@ -5,6 +5,7 @@
     compareSemVer,
     isValidSemVer,
     parseSemVer,
+    parseVersionPart,
   } = require("../index");
   const {assert} = require("chai");
   const {describe, it} = require("mocha");
@@ -128,6 +129,58 @@
 
     it("should be true even if build contains negative integer", () => {
       assert.isTrue(isValidSemVer("1.0.0-a+-1"));
+    });
+  });
+
+  describe("Parse Version Part", () => {
+    it("should be function", () => {
+      assert.typeOf(parseVersionPart, "function");
+    });
+
+    it("should throw", () => {
+      assert.throws(() => parseVersionPart());
+    });
+
+    it("should throw", () => {
+      assert.throws(() =>
+        parseVersionPart((Number.MAX_SAFE_INTEGER + 1).toString())
+      );
+    });
+
+    it("should throw", () => {
+      assert.throws(() => parseVersionPart("-1"));
+    });
+
+    it("should throw", () => {
+      assert.throws(() => parseVersionPart("01"));
+    });
+
+    it("should throw", () => {
+      assert.throws(() => parseVersionPart("a"));
+    });
+
+    it("should be equal", () => {
+      assert.strictEqual(parseVersionPart("0"), 0);
+    });
+
+    it("should be equal", () => {
+      assert.strictEqual(parseVersionPart("1"), 1);
+    });
+
+    it("should be equal", () => {
+      assert.strictEqual(parseVersionPart("10"), 10);
+    });
+
+    it("should be equal", () => {
+      assert.strictEqual(parseVersionPart("-1", true), "-1");
+    });
+
+    it("should be equal", () => {
+      assert.strictEqual(parseVersionPart("01", true), "01");
+    });
+
+    it("should be equal", () => {
+      assert.strictEqual(parseVersionPart("a", true), "a");
     });
   });
 

@@ -36,6 +36,31 @@
   };
 
   /**
+   * parse version part
+   * @param {string} part - version part
+   * @param {boolean} [testInt] - test version part is integer before parseInt()
+   * @returns {string|number} - parsed version part
+   */
+  const parseVersionPart = (part, testInt = false) => {
+    if (!isString(part)) {
+      throw new TypeError(`Expected String but got ${getType(part)}.`);
+    }
+    if (!(testInt || REGEXP_INT.test(part))) {
+      throw new Error(`${part} is not a stringified positive integer.`);
+    }
+    if (REGEXP_INT.test(part)) {
+      part = parseInt(part, BASE);
+      if (Number.isNaN(part)) {
+        throw new TypeError(`${part} is not a Number.`);
+      }
+      if (!Number.isSafeInteger(part)) {
+        throw new RangeError(`${part} exceeds ${Number.MAX_SAFE_INTEGER}.`);
+      }
+    }
+    return part;
+  };
+
+  /**
    * compare SemVer
    * @param {string} version - version string
    * @param {string} base - base version string to compare from
@@ -58,29 +83,15 @@
     if (!isValidSemVer(base, !!strict)) {
       throw new Error(`${base} is not valid version string.`);
     }
-    const reg = strict && REGEXP_SEMVER_STRICT || REGEXP_SEMVER;
     let result;
     if (version === base) {
       result = 0;
     } else {
+      const reg = strict && REGEXP_SEMVER_STRICT || REGEXP_SEMVER;
       const [, vRel, vPre] = version.match(reg);
       const [, bRel, bPre] = base.match(reg);
-      const [vMajor, vMinor, vPatch] =
-        vRel.split(".").map(part => {
-          part = parseInt(part, BASE);
-          if (!Number.isSafeInteger(part)) {
-            throw new RangeError(`${part} exceeds ${Number.MAX_SAFE_INTEGER}.`);
-          }
-          return part;
-        });
-      const [bMajor, bMinor, bPatch] =
-        bRel.split(".").map(part => {
-          part = parseInt(part, BASE);
-          if (!Number.isSafeInteger(part)) {
-            throw new RangeError(`${part} exceeds ${Number.MAX_SAFE_INTEGER}.`);
-          }
-          return part;
-        });
+      const [vMajor, vMinor, vPatch] = vRel.split(".").map(parseVersionPart);
+      const [bMajor, bMinor, bPatch] = bRel.split(".").map(parseVersionPart);
       if (vMajor > bMajor) {
         result = 1;
       } else if (vMajor < bMajor) {
@@ -100,28 +111,12 @@
       } else if (vPre && !bPre) {
         result = -1;
       } else {
-        const vPreParts = vPre.split(".").map(part => {
-          if (REGEXP_INT.test(part)) {
-            part = parseInt(part, BASE);
-            if (!Number.isSafeInteger(part)) {
-              throw new RangeError(
-                `${part} exceeds ${Number.MAX_SAFE_INTEGER}.`
-              );
-            }
-          }
-          return part;
-        });
-        const bPreParts = bPre.split(".").map(part => {
-          if (REGEXP_INT.test(part)) {
-            part = parseInt(part, BASE);
-            if (!Number.isSafeInteger(part)) {
-              throw new RangeError(
-                `${part} exceeds ${Number.MAX_SAFE_INTEGER}.`
-              );
-            }
-          }
-          return part;
-        });
+        const vPreParts = vPre.split(".").map(part =>
+          parseVersionPart(part, true)
+        );
+        const bPreParts = bPre.split(".").map(part =>
+          parseVersionPart(part, true)
+        );
         const l = Math.max(vPreParts.length, bPreParts.length);
         let i = 0;
         while (i < l) {
@@ -177,38 +172,12 @@
     if (matches) {
       const reg = strict && REGEXP_SEMVER_STRICT || REGEXP_SEMVER;
       const [, vRel, vPre, vBuild] = version.match(reg);
-      [major, minor, patch] = vRel.split(".").map(part => {
-        part = parseInt(part, BASE);
-        if (!Number.isSafeInteger(part)) {
-          throw new RangeError(`${part} exceeds ${Number.MAX_SAFE_INTEGER}.`);
-        }
-        return part;
-      });
+      [major, minor, patch] = vRel.split(".").map(parseVersionPart);
       if (vPre) {
-        pre = vPre.split(".").map(part => {
-          if (REGEXP_INT.test(part)) {
-            part = parseInt(part, BASE);
-            if (!Number.isSafeInteger(part)) {
-              throw new RangeError(
-                `${part} exceeds ${Number.MAX_SAFE_INTEGER}.`
-              );
-            }
-          }
-          return part;
-        });
+        pre = vPre.split(".").map(part => parseVersionPart(part, true));
       }
       if (vBuild) {
-        build = vBuild.split(".").map(part => {
-          if (REGEXP_INT.test(part)) {
-            part = parseInt(part, BASE);
-            if (!Number.isSafeInteger(part)) {
-              throw new RangeError(
-                `${part} exceeds ${Number.MAX_SAFE_INTEGER}.`
-              );
-            }
-          }
-          return part;
-        });
+        build = vBuild.split(".").map(part => parseVersionPart(part, true));
       }
     }
     return {
@@ -220,5 +189,6 @@
     compareSemVer,
     isValidSemVer,
     parseSemVer,
+    parseVersionPart,
   };
 }
