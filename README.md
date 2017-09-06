@@ -142,10 +142,6 @@ Compare versions in SemVer format.
                            | <numeric identifier>
 ```
 ```
-\d*[A-z-][A-z\d-]*|(?:0|[1-9]\d*)
-```
-optimized:
-```
 0|[1-9]\d*|\d*[A-z-][A-z\d-]*
 ```
 
