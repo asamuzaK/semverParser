@@ -157,7 +157,7 @@
    *   - result which contains properties below
    *     version {string} - given version string
    *     matches {boolean} - matches SemVer format
-   *     major {number} - major version
+   *     major {number|undefined} - major version
    *     minor {number|undefined} - minor version
    *     patch {number|undefined} - patch version
    *     pre {Array<string|number>|undefined} - pre release version in array
