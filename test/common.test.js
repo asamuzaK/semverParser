@@ -71,13 +71,15 @@
   describe("logErr", () => {
     it("should get false", () => {
       const msg = "Log Error test";
+      let errMsg;
       const consoleError = sinon.stub(console, "error").callsFake(e => {
-        assert.strictEqual(e.message, msg);
+        errMsg = e.message;
       });
       const res = logErr(new Error(msg));
       const {calledOnce} = consoleError;
       consoleError.restore();
       assert.isTrue(calledOnce);
+      assert.strictEqual(errMsg, msg);
       assert.isFalse(res);
     });
   });
@@ -85,13 +87,15 @@
   describe("logMsg", () => {
     it("should get string", () => {
       const msg = "Log message test";
+      let logMessage;
       const consoleLog = sinon.stub(console, "log").callsFake(m => {
-        assert.strictEqual(m, msg);
+        logMessage = m;
       });
       const res = logMsg(msg);
       const {calledOnce} = consoleLog;
       consoleLog.restore();
       assert.isTrue(calledOnce);
+      assert.strictEqual(logMessage, msg);
       assert.strictEqual(res, msg);
     });
   });
@@ -99,13 +103,15 @@
   describe("logWarn", () => {
     it("should get false", () => {
       const msg = "Log warn test";
+      let warnMsg;
       const consoleWarn = sinon.stub(console, "warn").callsFake(m => {
-        assert.strictEqual(m, msg);
+        warnMsg = m;
       });
       const res = logWarn(msg);
       const {calledOnce} = consoleWarn;
       consoleWarn.restore();
       assert.isTrue(calledOnce);
+      assert.strictEqual(warnMsg, msg);
       assert.isFalse(res);
     });
   });
