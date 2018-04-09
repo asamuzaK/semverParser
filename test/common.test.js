@@ -8,6 +8,7 @@
   } = require("../modules/common");
   const {assert} = require("chai");
   const {describe, it} = require("mocha");
+  const sinon = require("sinon");
 
   describe("escapeChar", () => {
     it("should get escaped string", () => {
@@ -69,22 +70,43 @@
 
   describe("logErr", () => {
     it("should get false", () => {
-      const e = new Error("Log Error test");
-      assert.strictEqual(logErr(e), false);
+      const msg = "Log Error test";
+      const consoleError = sinon.stub(console, "error").callsFake(e => {
+        assert.strictEqual(e.message, msg);
+      });
+      const res = logErr(new Error(msg));
+      const {calledOnce} = consoleError;
+      consoleError.restore();
+      assert.isTrue(calledOnce);
+      assert.isFalse(res);
     });
   });
 
   describe("logMsg", () => {
     it("should get string", () => {
       const msg = "Log message test";
-      assert.strictEqual(logMsg(msg), msg);
+      const consoleLog = sinon.stub(console, "log").callsFake(m => {
+        assert.strictEqual(m, msg);
+      });
+      const res = logMsg(msg);
+      const {calledOnce} = consoleLog;
+      consoleLog.restore();
+      assert.isTrue(calledOnce);
+      assert.strictEqual(res, msg);
     });
   });
 
   describe("logWarn", () => {
     it("should get false", () => {
-      const e = "Log warn test";
-      assert.strictEqual(logWarn(e), false);
+      const msg = "Log warn test";
+      const consoleWarn = sinon.stub(console, "warn").callsFake(m => {
+        assert.strictEqual(m, msg);
+      });
+      const res = logWarn(msg);
+      const {calledOnce} = consoleWarn;
+      consoleWarn.restore();
+      assert.isTrue(calledOnce);
+      assert.isFalse(res);
     });
   });
 
