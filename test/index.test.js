@@ -138,25 +138,52 @@
     });
 
     it("should throw", () => {
-      assert.throws(() => parseVersionPart());
-    });
-
-    it("should throw", () => {
-      assert.throws(() =>
-        parseVersionPart((Number.MAX_SAFE_INTEGER + 1).toString())
+      assert.throws(
+        () => parseVersionPart(),
+        TypeError,
+        "Expected String but got Undefined."
       );
     });
 
     it("should throw", () => {
-      assert.throws(() => parseVersionPart("-1"));
+      const part = (Number.MAX_SAFE_INTEGER + 1).toString();
+      assert.throws(
+        () => parseVersionPart(part),
+        RangeError,
+        `${part} exceeds ${Number.MAX_SAFE_INTEGER}.`
+      );
     });
 
     it("should throw", () => {
-      assert.throws(() => parseVersionPart("01"));
+      assert.throws(
+        () => parseVersionPart("-1"),
+        Error,
+        "-1 is not a stringified positive integer."
+      );
     });
 
     it("should throw", () => {
-      assert.throws(() => parseVersionPart("a"));
+      assert.throws(
+        () => parseVersionPart("01"),
+        Error,
+        "01 is not a stringified positive integer."
+      );
+    });
+
+    it("should throw", () => {
+      assert.throws(
+        () => parseVersionPart("a"),
+        Error,
+        "a is not a stringified positive integer."
+      );
+    });
+
+    it("should throw", () => {
+      assert.throws(
+        () => parseVersionPart("1e2"),
+        Error,
+        "1e2 is not a stringified positive integer."
+      );
     });
 
     it("should be equal", () => {
@@ -181,6 +208,10 @@
 
     it("should be equal", () => {
       assert.strictEqual(parseVersionPart("a", true), "a");
+    });
+
+    it("should be equal", () => {
+      assert.strictEqual(parseVersionPart("1e2", true), "1e2");
     });
   });
 
@@ -270,6 +301,10 @@
     });
 
     it("should be greater than 0", () => {
+      assert.isAbove(compareSemVer("2.0.0", "1.0.0"), 0);
+    });
+
+    it("should be greater than 0", () => {
       assert.isAbove(compareSemVer("1.1.0", "1.0.0"), 0);
     });
 
@@ -303,6 +338,10 @@
 
     it("should be greater than 0", () => {
       assert.isAbove(compareSemVer("1.0.0-a.-1", "1.0.0-a.1"), 0);
+    });
+
+    it("should be less than 0", () => {
+      assert.isBelow(compareSemVer("1.0.0", "2.0.0"), 0);
     });
 
     it("should be less than 0", () => {
