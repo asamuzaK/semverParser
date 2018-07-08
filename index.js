@@ -37,14 +37,14 @@ const isValidSemVer = (version, strict = false) => {
 /**
  * parse version part
  * @param {string} part - version part
- * @param {boolean} [testInt] - test version part is integer before parseInt()
+ * @param {boolean} [nonPosInt] - accept non positive integer
  * @returns {string|number} - parsed version part
  */
-const parseVersionPart = (part, testInt = false) => {
+const parseVersionPart = (part, nonPosInt = false) => {
   if (!isString(part)) {
     throw new TypeError(`Expected String but got ${getType(part)}.`);
   }
-  if (!(testInt || REGEXP_INT.test(part))) {
+  if (!(nonPosInt || REGEXP_INT.test(part))) {
     throw new Error(`${part} is not a stringified positive integer.`);
   }
   if (REGEXP_INT.test(part)) {
