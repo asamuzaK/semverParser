@@ -14,6 +14,24 @@ npm install semver-parser
 
 ## API
 
+APIs can be used either synchronously or asynchronously.
+
+sync:
+```
+const {
+  compareSemVer, isValidSemVer, parseSemVer,
+} = require("semver-parser");
+```
+
+async:
+```
+const {
+  promises: {
+    compareSemVer, isValidSemVer, parseSemVer,
+  },
+} = require("semver-parser");
+```
+
 NOTE: [Is &quot;v1.2.3&quot; a semantic version?](https://github.com/mojombo/semver/blob/master/semver.md#is-v123-a-semantic-version "semver/semver.md at master · mojombo/semver")
 
 > Is "v1.2.3" a semantic version?
