@@ -28,7 +28,7 @@ const REGEXP_SEMVER_STRICT = new RegExp(`^${SEMVER}$`);
  */
 const isValidSemVer = (version, strict = false) => {
   if (!isString(version)) {
-    throw new TypeError(`Expected String but got ${getType(version)}`);
+    throw new TypeError(`Expected String but got ${getType(version)}.`);
   }
   const reg = strict && REGEXP_SEMVER_STRICT || REGEXP_SEMVER;
   return reg.test(version);
@@ -71,10 +71,10 @@ const parseVersionPart = (part, nonPosInt = false) => {
  */
 const compareSemVer = (version, base, strict = false) => {
   if (!isString(version)) {
-    throw new TypeError(`Expected String but got ${getType(version)}`);
+    throw new TypeError(`Expected String but got ${getType(version)}.`);
   }
   if (!isString(base)) {
-    throw new TypeError(`Expected String but got ${getType(base)}`);
+    throw new TypeError(`Expected String but got ${getType(base)}.`);
   }
   if (!isValidSemVer(version, !!strict)) {
     throw new Error(`${version} is not valid version string.`);
@@ -164,7 +164,7 @@ const compareSemVer = (version, base, strict = false) => {
  */
 const parseSemVer = (version, strict = false) => {
   if (!isString(version)) {
-    throw new TypeError(`Expected String but got ${getType(version)}`);
+    throw new TypeError(`Expected String but got ${getType(version)}.`);
   }
   const matches = isValidSemVer(version, !!strict);
   let major, minor, patch, pre, build;
@@ -184,9 +184,60 @@ const parseSemVer = (version, strict = false) => {
   };
 };
 
+/* async wrappers */
+/**
+ * compare SemVer (async)
+ * @param {string} version - version string
+ * @param {string} base - base version string to compare from
+ * @param {boolean} [strict] - reject "v" prefixed
+ * @returns {number}
+ *   - -1 or negative number, if version is less than base version
+ *     0, if version is equal to base version
+ *     1 or positive number, if version is greater than base version
+ */
+const compareSemVerAsync = async (version, base, strict = false) => {
+  const res = await compareSemVer(version, base, strict);
+  return res;
+};
+
+/**
+ * is valid SemVer string (async)
+ * @param {string} version - version string
+ * @param {boolean} [strict] - reject "v" prefixed
+ * @returns {boolean} - result
+ */
+const isValidSemVerAsync = async (version, strict = false) => {
+  const res = await isValidSemVer(version, strict);
+  return res;
+};
+
+/**
+ * parse SemVer string (async)
+ * @param {string} version - version string
+ * @param {boolean} [strict] - reject "v" prefixed
+ * @returns {Object}
+ *   - result which contains properties below
+ *     version {string} - given version string
+ *     matches {boolean} - matches SemVer format
+ *     major {number|undefined} - major version
+ *     minor {number|undefined} - minor version
+ *     patch {number|undefined} - patch version
+ *     pre {Array<string|number>|undefined} - pre release version in array
+ *     build {Array<string|number>|undefined} - build ID in array
+ */
+const parseSemVerAsync = async (version, strict = false) => {
+  const res = await parseSemVer(version, strict);
+  return res;
+};
+
 module.exports = {
   compareSemVer,
   isValidSemVer,
   parseSemVer,
   parseVersionPart,
+  promises: {
+    compareSemVer: compareSemVerAsync,
+    isValidSemVer: isValidSemVerAsync,
+    parseSemVer: parseSemVerAsync,
+  },
 };
