@@ -729,108 +729,106 @@ describe("Parse SemVer", () => {
       build: undefined,
     });
   });
+});
 
-describe("promises", () => {
-  describe("Compare SemVer (async)", () => {
-    const func = promises.compareSemVer;
-    it("should be function", () => {
-      assert.typeOf(func, "function");
-    });
+describe("Compare SemVer (async)", () => {
+  const func = promises.compareSemVer;
+  it("should be function", () => {
+    assert.typeOf(func, "function");
+  });
 
-    it("should throw", async () => {
-      await func().catch(e => {
-        assert.instanceOf(e, TypeError, "error");
-        assert.strictEqual(e.message, "Expected String but got Undefined.",
-                           "message");
-      });
-    });
-
-    it("should throw", async () => {
-      await func("v1.0.0").catch(e => {
-        assert.instanceOf(e, TypeError, "error");
-        assert.strictEqual(e.message, "Expected String but got Undefined.",
-                           "message");
-      });
-    });
-
-    it("should throw", async () => {
-      await func("v1.0.0", "v1.0.1", true).catch(e => {
-        assert.instanceOf(e, Error, "error");
-        assert.strictEqual(e.message, "v1.0.0 is not valid version string.",
-                           "message");
-      });
-    });
-
-    it("should be greater than 0", async () => {
-      const res = await func("1.0.1", "1.0.0");
-      assert.isAbove(res, 0);
+  it("should throw", async () => {
+    await func().catch(e => {
+      assert.instanceOf(e, TypeError, "error");
+      assert.strictEqual(e.message, "Expected String but got Undefined.",
+                         "message");
     });
   });
 
-  describe("Is Valid SemVer String (async)", () => {
-    const func = promises.isValidSemVer;
-    it("should be function", () => {
-      assert.typeOf(func, "function");
-    });
-
-    it("should throw", async () => {
-      await func().catch(e => {
-        assert.instanceOf(e, TypeError, "error");
-        assert.strictEqual(e.message, "Expected String but got Undefined.",
-                           "message");
-      });
-    });
-
-    it("should be true", async () => {
-      const res = await func("1.0.0");
-      assert.isTrue(res);
-    });
-
-    it("should be false", async () => {
-      const res = await func("v1.0.0", true);
-      assert.isFalse(res);
+  it("should throw", async () => {
+    await func("v1.0.0").catch(e => {
+      assert.instanceOf(e, TypeError, "error");
+      assert.strictEqual(e.message, "Expected String but got Undefined.",
+                         "message");
     });
   });
 
-  describe("Parse SemVer String (async)", () => {
-    const func = promises.parseSemVer;
-    it("should be function", () => {
-      assert.typeOf(func, "function");
+  it("should throw", async () => {
+    await func("v1.0.0", "v1.0.1", true).catch(e => {
+      assert.instanceOf(e, Error, "error");
+      assert.strictEqual(e.message, "v1.0.0 is not valid version string.",
+                         "message");
     });
+  });
 
-    it("should throw", async () => {
-      await func().catch(e => {
-        assert.instanceOf(e, TypeError, "error");
-        assert.strictEqual(e.message, "Expected String but got Undefined.",
-                           "message");
-      });
-    });
-
-    it("should equal", async () => {
-      const res = await func("v1.0.0");
-      assert.deepEqual(res, {
-        version: "v1.0.0",
-        matches: true,
-        major: 1,
-        minor: 0,
-        patch: 0,
-        pre: undefined,
-        build: undefined,
-      });
-    });
-
-    it("should equal", async () => {
-      const res = await func("1.0.0", true);
-      assert.deepEqual(res, {
-        version: "1.0.0",
-        matches: true,
-        major: 1,
-        minor: 0,
-        patch: 0,
-        pre: undefined,
-        build: undefined,
-      });
-    });
+  it("should be greater than 0", async () => {
+    const res = await func("1.0.1", "1.0.0");
+    assert.isAbove(res, 0);
   });
 });
+
+describe("Is Valid SemVer String (async)", () => {
+  const func = promises.isValidSemVer;
+  it("should be function", () => {
+    assert.typeOf(func, "function");
+  });
+
+  it("should throw", async () => {
+    await func().catch(e => {
+      assert.instanceOf(e, TypeError, "error");
+      assert.strictEqual(e.message, "Expected String but got Undefined.",
+                         "message");
+    });
+  });
+
+  it("should be true", async () => {
+    const res = await func("1.0.0");
+    assert.isTrue(res);
+  });
+
+  it("should be false", async () => {
+    const res = await func("v1.0.0", true);
+    assert.isFalse(res);
+  });
+});
+
+describe("Parse SemVer String (async)", () => {
+  const func = promises.parseSemVer;
+  it("should be function", () => {
+    assert.typeOf(func, "function");
+  });
+
+  it("should throw", async () => {
+    await func().catch(e => {
+      assert.instanceOf(e, TypeError, "error");
+      assert.strictEqual(e.message, "Expected String but got Undefined.",
+                         "message");
+    });
+  });
+
+  it("should equal", async () => {
+    const res = await func("v1.0.0");
+    assert.deepEqual(res, {
+      version: "v1.0.0",
+      matches: true,
+      major: 1,
+      minor: 0,
+      patch: 0,
+      pre: undefined,
+      build: undefined,
+    });
+  });
+
+  it("should equal", async () => {
+    const res = await func("1.0.0", true);
+    assert.deepEqual(res, {
+      version: "1.0.0",
+      matches: true,
+      major: 1,
+      minor: 0,
+      patch: 0,
+      pre: undefined,
+      build: undefined,
+    });
+  });
 });
