@@ -15,6 +15,7 @@ npm install semver-parser
 ## API
 
 APIs can be used either synchronously or asynchronously.
+Async function returns Promise and will be resolved with the result.
 
 sync:
 ```
