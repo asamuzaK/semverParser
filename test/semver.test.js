@@ -353,6 +353,10 @@ describe("Compare SemVer", () => {
   });
 
   it("should be less than 0", () => {
+    assert.isAbove(compareSemVer("1.0.0-beta.1.11", "1.0.0-beta.1.2"), 0);
+  });
+
+  it("should be less than 0", () => {
     assert.isBelow(compareSemVer("1.0.0", "2.0.0"), 0);
   });
 
@@ -422,6 +426,10 @@ describe("Compare SemVer", () => {
 
   it("should be less than 0", () => {
     assert.isBelow(compareSemVer("1.0.0-beta.2", "1.0.0-beta.11"), 0);
+  });
+
+  it("should be less than 0", () => {
+    assert.isBelow(compareSemVer("1.0.0-beta.1.2", "1.0.0-beta.1.11"), 0);
   });
 
   it("should be less than 0", () => {
