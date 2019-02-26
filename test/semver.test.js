@@ -269,6 +269,10 @@ describe("Compare SemVer", () => {
   });
 
   it("should be equal", () => {
+    assert.strictEqual(compareSemVer("1.0.0", "1.0.0", true), 0);
+  });
+
+  it("should be equal", () => {
     assert.strictEqual(compareSemVer("v1.0.0", "1.0.0"), 0);
   });
 
@@ -297,11 +301,19 @@ describe("Compare SemVer", () => {
   });
 
   it("should be equal", () => {
+    assert.strictEqual(compareSemVer("1.0.0", "1.0.0+1", true), 0);
+  });
+
+  it("should be equal", () => {
     assert.strictEqual(compareSemVer("1.0.0+9007199254740992", "1.0.0+1"), 0);
   });
 
   it("should be greater than 0", () => {
     assert.isAbove(compareSemVer("2.0.0", "1.0.0"), 0);
+  });
+
+  it("should be greater than 0", () => {
+    assert.isAbove(compareSemVer("2.0.0", "1.0.0", true), 0);
   });
 
   it("should be greater than 0", () => {
@@ -345,6 +357,10 @@ describe("Compare SemVer", () => {
   });
 
   it("should be less than 0", () => {
+    assert.isBelow(compareSemVer("1.0.0", "2.0.0", true), 0);
+  });
+
+  it("should be less than 0", () => {
     assert.isBelow(compareSemVer("1.0.0", "1.1.0"), 0);
   });
 
@@ -354,6 +370,10 @@ describe("Compare SemVer", () => {
 
   it("should be less than 0", () => {
     assert.isBelow(compareSemVer("1.0.0-a", "1.0.0"), 0);
+  });
+
+  it("should be less than 0", () => {
+    assert.isBelow(compareSemVer("1.0.0-a", "1.0.0", true), 0);
   });
 
   it("should be less than 0", () => {
@@ -382,6 +402,10 @@ describe("Compare SemVer", () => {
 
   it("should be less than 0", () => {
     assert.isBelow(compareSemVer("1.0.0-alpha", "1.0.0-alpha.1"), 0);
+  });
+
+  it("should be less than 0", () => {
+    assert.isBelow(compareSemVer("1.0.0-alpha", "1.0.0-alpha.1", true), 0);
   });
 
   it("should be less than 0", () => {

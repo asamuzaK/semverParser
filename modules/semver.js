@@ -49,9 +49,6 @@ const parseVersionPart = (part, nonPosInt = false) => {
   }
   if (REGEXP_INT.test(part)) {
     part = parseInt(part, BASE);
-    if (Number.isNaN(part)) {
-      throw new TypeError(`${part} is not a Number.`);
-    }
     if (!Number.isSafeInteger(part)) {
       throw new RangeError(`${part} exceeds ${Number.MAX_SAFE_INTEGER}.`);
     }
@@ -141,9 +138,6 @@ const compareSemVer = (version, base, strict = false) => {
         i++;
       }
     }
-  }
-  if (!Number.isInteger(result)) {
-    throw new Error(`Failed to compare ${version} with ${base}.`);
   }
   return result;
 };
