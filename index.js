@@ -1,7 +1,7 @@
 /**
  * index.js
- * @see {@link http://semver.org/|Semantic Versioning}
- * @see {@link https://github.com/mojombo/semver/|mojombo/semver}
+ * @see {@link http://semver.org/ Semantic Versioning}
+ * @see {@link https://github.com/semver/semver/ Specification}
  */
 "use strict";
 /* api */
