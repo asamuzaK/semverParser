@@ -141,7 +141,7 @@ describe("Parse Version Part", () => {
     assert.throws(
       () => parseVersionPart(),
       TypeError,
-      "Expected String but got Undefined."
+      "Expected String but got Undefined.",
     );
   });
 
@@ -150,7 +150,7 @@ describe("Parse Version Part", () => {
     assert.throws(
       () => parseVersionPart(part),
       RangeError,
-      `${part} exceeds ${Number.MAX_SAFE_INTEGER}.`
+      `${part} exceeds ${Number.MAX_SAFE_INTEGER}.`,
     );
   });
 
@@ -158,7 +158,7 @@ describe("Parse Version Part", () => {
     assert.throws(
       () => parseVersionPart("-1"),
       Error,
-      "-1 is not a stringified positive integer."
+      "-1 is not a stringified positive integer.",
     );
   });
 
@@ -166,7 +166,7 @@ describe("Parse Version Part", () => {
     assert.throws(
       () => parseVersionPart("01"),
       Error,
-      "01 is not a stringified positive integer."
+      "01 is not a stringified positive integer.",
     );
   });
 
@@ -174,7 +174,7 @@ describe("Parse Version Part", () => {
     assert.throws(
       () => parseVersionPart("a"),
       Error,
-      "a is not a stringified positive integer."
+      "a is not a stringified positive integer.",
     );
   });
 
@@ -182,7 +182,7 @@ describe("Parse Version Part", () => {
     assert.throws(
       () => parseVersionPart("1e2"),
       Error,
-      "1e2 is not a stringified positive integer."
+      "1e2 is not a stringified positive integer.",
     );
   });
 

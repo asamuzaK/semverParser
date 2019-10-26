@@ -190,7 +190,7 @@ describe("parseStringifiedInt", () => {
     "should be integer if negative int leading zero but second arg is true",
     () => {
       assert.strictEqual(parseStringifiedInt("-01", true), -1);
-    }
+    },
   );
 
   it("should throw if negative int leading zero", () => {
@@ -201,7 +201,7 @@ describe("parseStringifiedInt", () => {
     "should be integer if negative int leading zero but second arg is true",
     () => {
       assert.strictEqual(parseStringifiedInt("-010", true), -10);
-    }
+    },
   );
 });
 

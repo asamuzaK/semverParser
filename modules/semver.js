@@ -108,10 +108,10 @@ const compareSemVer = (version, base, strict = false) => {
       result = -1;
     } else {
       const vPreParts = vPre.split(".").map(part =>
-        parseVersionPart(part, true)
+        parseVersionPart(part, true),
       );
       const bPreParts = bPre.split(".").map(part =>
-        parseVersionPart(part, true)
+        parseVersionPart(part, true),
       );
       const l = Math.max(vPreParts.length, bPreParts.length);
       let i = 0;
