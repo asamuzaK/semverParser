@@ -14,7 +14,7 @@
   },
   "main": "./index.js",
   "scripts": {
-    "lint": "eslint .",
+    "lint": "standardx --fix .",
     "test": "nyc --reporter=text mocha test --exit"
   },
   "devDependencies": {
@@ -23,7 +23,8 @@
     "eslint-plugin-jsdoc": "^30.7.7",
     "mocha": "^8.2.1",
     "nyc": "^15.1.0",
-    "sinon": "^9.2.0"
+    "sinon": "^9.2.0",
+    "standardx": "^7.0.0"
   },
   "version": "3.0.5"
 }

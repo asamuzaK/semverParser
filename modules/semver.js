@@ -4,14 +4,14 @@
  * @see {@link http://semver.org/|Semantic Versioning}
  * @see {@link https://github.com/mojombo/semver/|mojombo/semver}
  */
-"use strict";
+'use strict';
 /* api */
-const {getType, isString} = require("./common");
+const { getType, isString } = require('./common');
 
 /* constants */
 const BASE = 10;
-const INT = "(?:0|[1-9]\\d*)";
-const ALPHA_NUM = "\\d*[A-z-][A-z\\d-]*";
+const INT = '(?:0|[1-9]\\d*)';
+const ALPHA_NUM = '\\d*[A-z-][A-z\\d-]*';
 const PRE_PART = `(?:${ALPHA_NUM}|${INT})`;
 const PRE = `${PRE_PART}(?:\\.${PRE_PART})*`;
 const BUILD_PART = `(?:${ALPHA_NUM}|\\d+)`;
@@ -32,7 +32,7 @@ const isValidSemVer = (version, strict = false) => {
   if (!isString(version)) {
     throw new TypeError(`Expected String but got ${getType(version)}.`);
   }
-  const reg = strict && REGEXP_SEMVER_STRICT || REGEXP_SEMVER;
+  const reg = strict ? REGEXP_SEMVER_STRICT : REGEXP_SEMVER;
   return reg.test(version);
 };
 
@@ -87,11 +87,11 @@ const compareSemVer = (version, base, strict = false) => {
   if (version === base) {
     result = 0;
   } else {
-    const reg = strict && REGEXP_SEMVER_STRICT || REGEXP_SEMVER;
+    const reg = strict ? REGEXP_SEMVER_STRICT : REGEXP_SEMVER;
     const [, vRel, vPre] = version.match(reg);
     const [, bRel, bPre] = base.match(reg);
-    const [vMajor, vMinor, vPatch] = vRel.split(".").map(parseVersionPart);
-    const [bMajor, bMinor, bPatch] = bRel.split(".").map(parseVersionPart);
+    const [vMajor, vMinor, vPatch] = vRel.split('.').map(parseVersionPart);
+    const [bMajor, bMinor, bPatch] = bRel.split('.').map(parseVersionPart);
     if (vMajor > bMajor) {
       result = 1;
     } else if (vMajor < bMajor) {
@@ -111,21 +111,21 @@ const compareSemVer = (version, base, strict = false) => {
     } else if (vPre && !bPre) {
       result = -1;
     } else {
-      const vPreParts = vPre.split(".").map(part =>
-        parseVersionPart(part, true),
+      const vPreParts = vPre.split('.').map(part =>
+        parseVersionPart(part, true)
       );
-      const bPreParts = bPre.split(".").map(part =>
-        parseVersionPart(part, true),
+      const bPreParts = bPre.split('.').map(part =>
+        parseVersionPart(part, true)
       );
       const l = Math.max(vPreParts.length, bPreParts.length);
       let i = 0;
       while (i < l) {
         const vPart = vPreParts[i];
         const bPart = bPreParts[i];
-        if (vPart && !bPart || isString(vPart) && Number.isInteger(bPart)) {
+        if ((vPart && !bPart) || (isString(vPart) && Number.isInteger(bPart))) {
           result = 1;
-        } else if (!vPart && bPart ||
-                   Number.isInteger(vPart) && isString(bPart)) {
+        } else if ((!vPart && bPart) ||
+                   (Number.isInteger(vPart) && isString(bPart))) {
           result = -1;
         } else if (vPart !== bPart && isString(vPart) && isString(bPart)) {
           result = vPart.localeCompare(bPart);
@@ -168,18 +168,18 @@ const parseSemVer = (version, strict = false) => {
   const matches = isValidSemVer(version, !!strict);
   let major, minor, patch, pre, build;
   if (matches) {
-    const reg = strict && REGEXP_SEMVER_STRICT || REGEXP_SEMVER;
+    const reg = strict ? REGEXP_SEMVER_STRICT : REGEXP_SEMVER;
     const [, vRel, vPre, vBuild] = version.match(reg);
-    [major, minor, patch] = vRel.split(".").map(parseVersionPart);
+    [major, minor, patch] = vRel.split('.').map(parseVersionPart);
     if (vPre) {
-      pre = vPre.split(".").map(part => parseVersionPart(part, true));
+      pre = vPre.split('.').map(part => parseVersionPart(part, true));
     }
     if (vBuild) {
-      build = vBuild.split(".").map(part => parseVersionPart(part, true));
+      build = vBuild.split('.').map(part => parseVersionPart(part, true));
     }
   }
   return {
-    version, matches, major, minor, patch, pre, build,
+    version, matches, major, minor, patch, pre, build
   };
 };
 
@@ -240,6 +240,6 @@ module.exports = {
   promises: {
     compareSemVer: compareSemVerAsync,
     isValidSemVer: isValidSemVerAsync,
-    parseSemVer: parseSemVerAsync,
-  },
+    parseSemVer: parseSemVerAsync
+  }
 };
