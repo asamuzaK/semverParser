@@ -20,17 +20,17 @@ Async function returns Promise which resolves with the result.
 sync:
 ```
 const {
-  compareSemVer, isValidSemVer, parseSemVer,
-} = require("semver-parser");
+  compareSemVer, isValidSemVer, parseSemVer
+} = require('semver-parser');
 ```
 
 async:
 ```
 const {
   promises: {
-    compareSemVer, isValidSemVer, parseSemVer,
-  },
-} = require("semver-parser");
+    compareSemVer, isValidSemVer, parseSemVer
+  }
+} = require('semver-parser');
 ```
 
 NOTE: [Is &quot;v1.2.3&quot; a semantic version?](https://github.com/mojombo/semver/blob/master/semver.md#is-v123-a-semantic-version "semver/semver.md at master · mojombo/semver")
@@ -47,7 +47,7 @@ If you do not want to accept "v" prefix, set `strict` param to `true`.
 Parses version string.
 
 * @param {string} version - version string
-* @param {boolean} [strict] - reject "v" prefixed
+* @param {boolean} [strict] - reject 'v' prefixed
 * @returns {Object} - parsed result, contains properties below
   - version {string} - given version string
   - matches {boolean} - matches SemVer format
@@ -62,7 +62,7 @@ Parses version string.
 Determine whether the given argument is a valid SemVer string.
 
 * @param {string} version - version string
-* @param {boolean} [strict] - reject "v" prefixed
+* @param {boolean} [strict] - reject 'v' prefixed
 * @returns {boolean} - result
 
 ### compareSemVer(version, base, strict)
@@ -71,7 +71,7 @@ Compare versions in SemVer format.
 
 * @param {string} version - version string
 * @param {string} base - base version string to compare from
-* @param {boolean} [strict] - reject "v" prefixed
+* @param {boolean} [strict] - reject 'v' prefixed
 * @returns {number}
   - -1 or negative number, if version is less than base version
   - 0, if version is equal to base version
