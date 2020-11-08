@@ -2,6 +2,9 @@
   "extends": [
     "plugin:jsdoc/recommended"
   ],
+  "parserOptions": {
+    "ecmaVersion": 2019
+  },
   "reportUnusedDisableDirectives": true,
   "rules": {
     "semi": ["error", "always"],
