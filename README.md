@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/asamuzaK/semverParser.svg?branch=master)](https://travis-ci.com/asamuzaK/semverParser)
+[![build](https://github.com/asamuzaK/semverParser/workflows/build/badge.svg)](https://github.com/asamuzaK/semverParser/actions?query=workflow%3Abuild)
 [![devDependency Status](https://david-dm.org/asamuzaK/semverParser/dev-status.svg)](https://david-dm.org/asamuzaK/semverParser?type=dev)
 [![npm version](https://badge.fury.io/js/semver-parser.svg)](https://badge.fury.io/js/semver-parser)
 
