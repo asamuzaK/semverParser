@@ -10,11 +10,13 @@
   },
   "license": "MIT",
   "main": "./index.js",
+  "type": "module",
   "scripts": {
     "lint": "eslint --fix .",
-    "test": "nyc --reporter=text mocha test --exit"
+    "test": "c8 --reporter=text mocha test --exit"
   },
   "devDependencies": {
+    "c8": "^7.9.0",
     "chai": "^4.3.4",
     "eslint": "^7.32.0",
     "eslint-config-standard": "^16.0.3",
@@ -23,7 +25,6 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
     "mocha": "^9.1.2",
-    "nyc": "^15.1.0",
     "sinon": "^11.1.2"
   },
   "version": "3.1.1"
