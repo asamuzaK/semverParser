@@ -19,18 +19,19 @@ Async function returns Promise which resolves with the result.
 
 sync:
 ```
-const {
+import {
   compareSemVer, isValidSemVer, parseSemVer
-} = require('semver-parser');
+} from 'semver-parser';
 ```
 
 async:
 ```
+import {
+  promises
+} from 'semver-parser';
 const {
-  promises: {
-    compareSemVer, isValidSemVer, parseSemVer
-  }
-} = require('semver-parser');
+  compareSemVer, isValidSemVer, parseSemVer
+} = promises;
 ```
 
 NOTE: [Is &quot;v1.2.3&quot; a semantic version?](https://github.com/mojombo/semver/blob/master/semver.md#is-v123-a-semantic-version "semver/semver.md at master · mojombo/semver")
