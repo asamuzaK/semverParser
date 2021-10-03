@@ -1,12 +1,14 @@
-'use strict';
-const {
+/* api */
+import { assert } from 'chai';
+import { describe, it } from 'mocha';
+
+/* test */
+import {
   compareSemVer,
   isValidSemVer,
   parseSemVer,
   promises
-} = require('../index');
-const { assert } = require('chai');
-const { describe, it } = require('mocha');
+} from '../index.js';
 
 describe('Is Valid Semver', () => {
   it('should be function', () => {

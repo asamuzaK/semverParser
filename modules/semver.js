@@ -4,9 +4,9 @@
  * @see {@link http://semver.org/|Semantic Versioning}
  * @see {@link https://github.com/mojombo/semver/|mojombo/semver}
  */
-'use strict';
+
 /* api */
-const { getType, isString } = require('./common');
+import { getType, isString } from './common.js';
 
 /* constants */
 const BASE = 10;
@@ -28,7 +28,7 @@ const REGEXP_SEMVER_STRICT = new RegExp(`^${SEMVER}$`);
  * @param {boolean} [strict] - reject "v" prefixed
  * @returns {boolean} - result
  */
-const isValidSemVer = (version, strict = false) => {
+export const isValidSemVer = (version, strict = false) => {
   if (!isString(version)) {
     throw new TypeError(`Expected String but got ${getType(version)}.`);
   }
@@ -43,7 +43,7 @@ const isValidSemVer = (version, strict = false) => {
  * @param {boolean} [nonPosInt] - accept non positive integer
  * @returns {string|number} - parsed version part
  */
-const parseVersionPart = (part, nonPosInt = false) => {
+export const parseVersionPart = (part, nonPosInt = false) => {
   if (!isString(part)) {
     throw new TypeError(`Expected String but got ${getType(part)}.`);
   }
@@ -70,7 +70,7 @@ const parseVersionPart = (part, nonPosInt = false) => {
  *     0, if version is equal to base version
  *     1 or positive number, if version is greater than base version
  */
-const compareSemVer = (version, base, strict = false) => {
+export const compareSemVer = (version, base, strict = false) => {
   if (!isString(version)) {
     throw new TypeError(`Expected String but got ${getType(version)}.`);
   }
@@ -161,7 +161,7 @@ const compareSemVer = (version, base, strict = false) => {
  *     pre {Array<string|number>|undefined} - pre release version in array
  *     build {Array<string|number>|undefined} - build ID in array
  */
-const parseSemVer = (version, strict = false) => {
+export const parseSemVer = (version, strict = false) => {
   if (!isString(version)) {
     throw new TypeError(`Expected String but got ${getType(version)}.`);
   }
@@ -195,7 +195,7 @@ const parseSemVer = (version, strict = false) => {
  *     0, if version is equal to base version
  *     1 or positive number, if version is greater than base version
  */
-const compareSemVerAsync = async (version, base, strict = false) => {
+export const compareSemVerAsync = async (version, base, strict = false) => {
   const res = await compareSemVer(version, base, strict);
   return res;
 };
@@ -207,7 +207,7 @@ const compareSemVerAsync = async (version, base, strict = false) => {
  * @param {boolean} [strict] - reject "v" prefixed
  * @returns {boolean} - result
  */
-const isValidSemVerAsync = async (version, strict = false) => {
+export const isValidSemVerAsync = async (version, strict = false) => {
   const res = await isValidSemVer(version, strict);
   return res;
 };
@@ -227,19 +227,13 @@ const isValidSemVerAsync = async (version, strict = false) => {
  *     pre {Array<string|number>|undefined} - pre release version in array
  *     build {Array<string|number>|undefined} - build ID in array
  */
-const parseSemVerAsync = async (version, strict = false) => {
+export const parseSemVerAsync = async (version, strict = false) => {
   const res = await parseSemVer(version, strict);
   return res;
 };
 
-module.exports = {
-  compareSemVer,
-  isValidSemVer,
-  parseSemVer,
-  parseVersionPart,
-  promises: {
-    compareSemVer: compareSemVerAsync,
-    isValidSemVer: isValidSemVerAsync,
-    parseSemVer: parseSemVerAsync
-  }
+export const promises = {
+  compareSemVer: compareSemVerAsync,
+  isValidSemVer: isValidSemVerAsync,
+  parseSemVer: parseSemVerAsync
 };

@@ -1,13 +1,18 @@
-'use strict';
-const {
+/* api */
+import { assert } from 'chai';
+import { describe, it } from 'mocha';
+
+/* test */
+import {
   compareSemVer,
+  compareSemVerAsync,
   isValidSemVer,
+  isValidSemVerAsync,
   parseSemVer,
+  parseSemVerAsync,
   parseVersionPart,
   promises
-} = require('../modules/semver');
-const { assert } = require('chai');
-const { describe, it } = require('mocha');
+} from '../modules/semver.js';
 
 describe('Is Valid Semver', () => {
   it('should be function', () => {
@@ -763,7 +768,7 @@ describe('Parse SemVer', () => {
 });
 
 describe('Compare SemVer (async)', () => {
-  const func = promises.compareSemVer;
+  const func = compareSemVerAsync;
   it('should be function', () => {
     assert.typeOf(func, 'function');
   });
@@ -799,7 +804,7 @@ describe('Compare SemVer (async)', () => {
 });
 
 describe('Is Valid SemVer String (async)', () => {
-  const func = promises.isValidSemVer;
+  const func = isValidSemVerAsync;
   it('should be function', () => {
     assert.typeOf(func, 'function');
   });
@@ -824,7 +829,7 @@ describe('Is Valid SemVer String (async)', () => {
 });
 
 describe('Parse SemVer String (async)', () => {
-  const func = promises.parseSemVer;
+  const func = parseSemVerAsync;
   it('should be function', () => {
     assert.typeOf(func, 'function');
   });
@@ -861,5 +866,14 @@ describe('Parse SemVer String (async)', () => {
       pre: undefined,
       build: undefined
     });
+  });
+});
+
+describe('promises', () => {
+  it('should be functions', () => {
+    const keys = Object.keys(promises);
+    for (const key of keys) {
+      assert.typeOf(promises[key], 'function');
+    }
   });
 });
