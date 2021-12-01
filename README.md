@@ -1,6 +1,8 @@
 [![build](https://github.com/asamuzaK/semverParser/workflows/build/badge.svg)](https://github.com/asamuzaK/semverParser/actions?query=workflow%3Abuild)
 [![CodeQL](https://github.com/asamuzaK/semverParser/workflows/CodeQL/badge.svg)](https://github.com/asamuzaK/semverParser/actions?query=workflow%3ACodeQL)
-<!-- [![devDependency Status](https://david-dm.org/asamuzaK/semverParser/dev-status.svg)](https://david-dm.org/asamuzaK/semverParser?type=dev) -->
+<!--
+[![devDependency Status](https://david-dm.org/asamuzaK/semverParser/dev-status.svg)](https://david-dm.org/asamuzaK/semverParser?type=dev)
+-->
 [![npm version](https://badge.fury.io/js/semver-parser.svg)](https://badge.fury.io/js/semver-parser)
 
 # SemVer Parser
