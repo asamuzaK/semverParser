@@ -7,7 +7,7 @@
 
 # SemVer Parser
 
-Parse, determine, compare [SemVer](http://semver.org/ "Semantic Versioning 2.0.0 | Semantic Versioning").
+Parse, verify, compare [SemVer](http://semver.org/ "Semantic Versioning 2.0.0 | Semantic Versioning").
 
 ## Install
 
