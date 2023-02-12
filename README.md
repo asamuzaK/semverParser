@@ -1,13 +1,10 @@
 [![build](https://github.com/asamuzaK/semverParser/workflows/build/badge.svg)](https://github.com/asamuzaK/semverParser/actions?query=workflow%3Abuild)
 [![CodeQL](https://github.com/asamuzaK/semverParser/workflows/CodeQL/badge.svg)](https://github.com/asamuzaK/semverParser/actions?query=workflow%3ACodeQL)
-<!--
-[![devDependency Status](https://david-dm.org/asamuzaK/semverParser/dev-status.svg)](https://david-dm.org/asamuzaK/semverParser?type=dev)
--->
-[![npm version](https://badge.fury.io/js/semver-parser.svg)](https://badge.fury.io/js/semver-parser)
+[![npm](https://img.shields.io/npm/v/semver-parser)](https://www.npmjs.com/package/semver-parser)
 
 # SemVer Parser
 
-Parse, verify, compare [SemVer](http://semver.org/ "Semantic Versioning 2.0.0 | Semantic Versioning").
+Parse, verify, compare [SemVer](https://semver.org/ "Semantic Versioning 2.0.0 | Semantic Versioning").
 
 ## Install
 
