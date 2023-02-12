@@ -1,4 +1,4 @@
-/**
+/*!
  * SemVer Parser
  *
  * @license MIT
