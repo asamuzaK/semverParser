@@ -21,6 +21,5 @@
       "asyncArrow": "always",
       "named": "never"
     }]
-  },
-  "root": true
+  }
 }
