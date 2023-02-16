@@ -1,5 +1,5 @@
 declare module 'semver-parser' {
-  type SemverObject = {
+  type SemVerObject = {
       version: string,
       matches: boolean,
       major?: number | undefined,
@@ -11,10 +11,10 @@ declare module 'semver-parser' {
 
   export const compareSemVer: (version: string, base: string, strict?: boolean) => number;
   export const isValidSemVer: (version: string, strict?: boolean) => boolean;
-  export const parseSemVer: (version: string, strict?: boolean) => SemverObject;
+  export const parseSemVer: (version: string, strict?: boolean) => SemVerObject;
   export const promises: {
     compareSemVer: (version: string, base: string, strict?: boolean) => number,
     isValidSemVer: (version: string, strict?: boolean) => boolean,
-    parseSemVer: (version: string, strict?: boolean) => SemverObject,
+    parseSemVer: (version: string, strict?: boolean) => SemVerObject,
   };
 }
