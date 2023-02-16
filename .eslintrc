@@ -4,7 +4,6 @@
     "node": true
   },
   "extends": [
-    "plugin:@typescript-eslint/recommended",
     "plugin:jsdoc/recommended",
     "standard"
   ],
