@@ -38,7 +38,7 @@ const REGEXP_SEMVER_STRICT = new RegExp(`^${SEMVER}$`);
  * is valid SemVer string
  *
  * @param {string} version - version string
- * @param {boolean} [strict] - reject "v" prefixed
+ * @param {boolean} [strict] - reject 'v' prefixed
  * @returns {boolean} - result
  */
 export const isValidSemVer = (version, strict = false) => {
@@ -77,7 +77,7 @@ export const parseVersionPart = (part, nonPosInt = false) => {
  *
  * @param {string} version - version string
  * @param {string} base - base version string to compare from
- * @param {boolean} [strict] - reject "v" prefixed
+ * @param {boolean} [strict] - reject 'v' prefixed
  * @returns {number}
  *   - -1 or negative number, if version is less than base version
  *     0, if version is equal to base version
@@ -163,7 +163,7 @@ export const compareSemVer = (version, base, strict = false) => {
  * parse SemVer string
  *
  * @param {string} version - version string
- * @param {boolean} [strict] - reject "v" prefixed
+ * @param {boolean} [strict] - reject 'v' prefixed
  * @returns {SemVerObject} - result
  */
 export const parseSemVer = (version, strict = false) => {
@@ -194,13 +194,13 @@ export const parseSemVer = (version, strict = false) => {
  *
  * @param {string} version - version string
  * @param {string} base - base version string to compare from
- * @param {boolean} [strict] - reject "v" prefixed
+ * @param {boolean} [strict] - reject 'v' prefixed
  * @returns {number}
  *   - -1 or negative number, if version is less than base version
  *     0, if version is equal to base version
  *     1 or positive number, if version is greater than base version
  */
-export const compareSemVerAsync = async (version, base, strict = false) => {
+const compareSemVerAsync = async (version, base, strict = false) => {
   const res = compareSemVer(version, base, strict);
   return res;
 };
@@ -209,10 +209,10 @@ export const compareSemVerAsync = async (version, base, strict = false) => {
  * is valid SemVer string (async)
  *
  * @param {string} version - version string
- * @param {boolean} [strict] - reject "v" prefixed
+ * @param {boolean} [strict] - reject 'v' prefixed
  * @returns {boolean} - result
  */
-export const isValidSemVerAsync = async (version, strict = false) => {
+const isValidSemVerAsync = async (version, strict = false) => {
   const res = isValidSemVer(version, strict);
   return res;
 };
@@ -221,10 +221,10 @@ export const isValidSemVerAsync = async (version, strict = false) => {
  * parse SemVer string (async)
  *
  * @param {string} version - version string
- * @param {boolean} [strict] - reject "v" prefixed
+ * @param {boolean} [strict] - reject 'v' prefixed
  * @returns {SemVerObject} - result
  */
-export const parseSemVerAsync = async (version, strict = false) => {
+const parseSemVerAsync = async (version, strict = false) => {
   const res = parseSemVer(version, strict);
   return res;
 };

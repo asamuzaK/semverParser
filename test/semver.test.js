@@ -5,11 +5,8 @@ import { describe, it } from 'mocha';
 /* test */
 import {
   compareSemVer,
-  compareSemVerAsync,
   isValidSemVer,
-  isValidSemVerAsync,
   parseSemVer,
-  parseSemVerAsync,
   parseVersionPart,
   promises
 } from '../modules/semver.js';
@@ -767,8 +764,17 @@ describe('Parse SemVer', () => {
   });
 });
 
+describe('promises', () => {
+  it('should be functions', () => {
+    const keys = Object.keys(promises);
+    for (const key of keys) {
+      assert.typeOf(promises[key], 'function');
+    }
+  });
+});
+
 describe('Compare SemVer (async)', () => {
-  const func = compareSemVerAsync;
+  const func = promises.compareSemVer;
   it('should be function', () => {
     assert.typeOf(func, 'function');
   });
@@ -804,7 +810,7 @@ describe('Compare SemVer (async)', () => {
 });
 
 describe('Is Valid SemVer String (async)', () => {
-  const func = isValidSemVerAsync;
+  const func = promises.isValidSemVer;
   it('should be function', () => {
     assert.typeOf(func, 'function');
   });
@@ -829,7 +835,7 @@ describe('Is Valid SemVer String (async)', () => {
 });
 
 describe('Parse SemVer String (async)', () => {
-  const func = parseSemVerAsync;
+  const func = promises.parseSemVer;
   it('should be function', () => {
     assert.typeOf(func, 'function');
   });
@@ -866,14 +872,5 @@ describe('Parse SemVer String (async)', () => {
       pre: undefined,
       build: undefined
     });
-  });
-});
-
-describe('promises', () => {
-  it('should be functions', () => {
-    const keys = Object.keys(promises);
-    for (const key of keys) {
-      assert.typeOf(promises[key], 'function');
-    }
   });
 });
