@@ -23,14 +23,13 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.1.1",
     "mocha": "^10.2.0",
-    "sinon": "^15.0.1",
     "typescript": "^4.9.5"
   },
   "scripts": {
-    "build": "npm run lint && npm run test && node -e \"fs.rmSync('types', { recursive: true, force: true })\" && npm run tsc",
+    "build": "npm run lint && npm run test && npm run tsc",
     "lint": "eslint --fix .",
     "test": "c8 --reporter=text mocha --exit test",
-    "tsc": "npx tsc"
+    "tsc": "node -e \"fs.rmSync('types',{recursive:true,force:true})\" && npx tsc"
   },
   "version": "4.1.1"
 }
