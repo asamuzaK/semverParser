@@ -63,13 +63,16 @@ export const parseVersionPart = (part, nonPosInt = false) => {
   if (!(nonPosInt || REGEXP_INT.test(part))) {
     throw new Error(`${part} is not a stringified positive integer.`);
   }
+  let parsedPart;
   if (REGEXP_INT.test(part)) {
-    part = parseInt(part, BASE);
-    if (!Number.isSafeInteger(part)) {
-      throw new RangeError(`${part} exceeds ${Number.MAX_SAFE_INTEGER}.`);
+    parsedPart = parseInt(part, BASE);
+    if (!Number.isSafeInteger(parsedPart)) {
+      throw new RangeError(`${parsedPart} exceeds ${Number.MAX_SAFE_INTEGER}.`);
     }
+  } else {
+    parsedPart = part;
   }
-  return part;
+  return parsedPart;
 };
 
 /**
@@ -103,8 +106,10 @@ export const compareSemVer = (version, base, strict = false) => {
     const reg = strict ? REGEXP_SEMVER_STRICT : REGEXP_SEMVER;
     const [, vRel, vPre] = version.match(reg);
     const [, bRel, bPre] = base.match(reg);
-    const [vMajor, vMinor, vPatch] = vRel.split('.').map(parseVersionPart);
-    const [bMajor, bMinor, bPatch] = bRel.split('.').map(parseVersionPart);
+    const [vMajor, vMinor, vPatch] =
+      vRel.split('.').map(part => parseVersionPart(part));
+    const [bMajor, bMinor, bPatch] =
+      bRel.split('.').map(part => parseVersionPart(part));
     if (vMajor > bMajor) {
       result = 1;
     } else if (vMajor < bMajor) {
@@ -175,7 +180,7 @@ export const parseSemVer = (version, strict = false) => {
   if (matches) {
     const reg = strict ? REGEXP_SEMVER_STRICT : REGEXP_SEMVER;
     const [, vRel, vPre, vBuild] = version.match(reg);
-    [major, minor, patch] = vRel.split('.').map(parseVersionPart);
+    [major, minor, patch] = vRel.split('.').map(part => parseVersionPart(part));
     if (vPre) {
       pre = vPre.split('.').map(part => parseVersionPart(part, true));
     }
@@ -195,7 +200,7 @@ export const parseSemVer = (version, strict = false) => {
  * @param {string} version - version string
  * @param {string} base - base version string to compare from
  * @param {boolean} [strict] - reject 'v' prefixed
- * @returns {number}
+ * @returns {Promise.<number>}
  *   - -1 or negative number, if version is less than base version
  *     0, if version is equal to base version
  *     1 or positive number, if version is greater than base version
@@ -210,7 +215,7 @@ const compareSemVerAsync = async (version, base, strict = false) => {
  *
  * @param {string} version - version string
  * @param {boolean} [strict] - reject 'v' prefixed
- * @returns {boolean} - result
+ * @returns {Promise.<boolean>} - result
  */
 const isValidSemVerAsync = async (version, strict = false) => {
   const res = isValidSemVer(version, strict);
@@ -222,7 +227,7 @@ const isValidSemVerAsync = async (version, strict = false) => {
  *
  * @param {string} version - version string
  * @param {boolean} [strict] - reject 'v' prefixed
- * @returns {SemVerObject} - result
+ * @returns {Promise.<SemVerObject>} - result
  */
 const parseSemVerAsync = async (version, strict = false) => {
   const res = parseSemVer(version, strict);

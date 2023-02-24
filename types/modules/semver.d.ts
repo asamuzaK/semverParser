@@ -16,7 +16,7 @@ export type SemVerObject = {
     pre: Array<string | number> | undefined;
     build: Array<string | number> | undefined;
 };
-declare function compareSemVerAsync(version: string, base: string, strict?: boolean): number;
-declare function isValidSemVerAsync(version: string, strict?: boolean): boolean;
-declare function parseSemVerAsync(version: string, strict?: boolean): SemVerObject;
+declare function compareSemVerAsync(version: string, base: string, strict?: boolean): Promise<number>;
+declare function isValidSemVerAsync(version: string, strict?: boolean): Promise<boolean>;
+declare function parseSemVerAsync(version: string, strict?: boolean): Promise<SemVerObject>;
 export {};
