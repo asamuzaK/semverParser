@@ -10,14 +10,15 @@ import { getType, isString } from './common.js';
 
 /* constants */
 const BASE = 10;
-const INT = '(?:0|[1-9]\\d*)';
-const ALPHA_NUM = '\\d*[A-z-][A-z\\d-]*';
+const INT = '0|[1-9]\\d*';
+const ALPHA_NUM = '\\d*[A-Za-z-][A-Za-z\\d-]*';
 const PRE_PART = `(?:${ALPHA_NUM}|${INT})`;
 const PRE = `${PRE_PART}(?:\\.${PRE_PART})*`;
 const BUILD_PART = `(?:${ALPHA_NUM}|\\d+)`;
 const BUILD = `${BUILD_PART}(?:\\.${BUILD_PART})*`;
-const SEMVER = `(${INT}(?:\\.${INT}){2})(?:-(${PRE}))?(?:\\+(${BUILD}))?`;
-const REGEXP_INT = new RegExp(`^${INT}$`);
+const SEMVER =
+  `((?:${INT})(?:\\.(?:${INT})){2})(?:-(${PRE}))?(?:\\+(${BUILD}))?`;
+const REGEXP_INT = new RegExp(`^(?:${INT})$`);
 const REGEXP_SEMVER = new RegExp(`^v?${SEMVER}$`);
 const REGEXP_SEMVER_STRICT = new RegExp(`^${SEMVER}$`);
 
