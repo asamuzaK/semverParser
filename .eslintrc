@@ -5,6 +5,7 @@
   },
   "extends": [
     "plugin:jsdoc/recommended",
+    "plugin:regexp/recommended",
     "standard"
   ],
   "parserOptions": {
@@ -12,7 +13,8 @@
     "sourceType": "module"
   },
   "plugins": [
-    "eslint-plugin-import"
+    "eslint-plugin-import",
+    "eslint-plugin-regexp"
   ],
   "reportUnusedDisableDirectives": true,
   "rules": {
