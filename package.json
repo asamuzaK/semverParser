@@ -15,7 +15,7 @@
   "devDependencies": {
     "c8": "^7.13.0",
     "chai": "^4.3.7",
-    "eslint": "^8.34.0",
+    "eslint": "^8.35.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-jsdoc": "^40.0.0",
@@ -32,5 +32,5 @@
     "test": "c8 --reporter=text mocha --exit test",
     "tsc": "node -e \"fs.rmSync('types',{recursive:true,force:true})\" && npx tsc"
   },
-  "version": "4.1.2"
+  "version": "4.1.3"
 }
