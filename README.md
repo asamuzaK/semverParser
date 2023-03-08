@@ -8,7 +8,7 @@ Parse, verify, compare [SemVer](https://semver.org/ "Semantic Versioning 2.0.0 |
 
 ## Install
 
-```
+```console
 npm install semver-parser
 ```
 
@@ -18,12 +18,12 @@ APIs can be used either synchronously or asynchronously.
 Async function returns Promise which resolves with the result.
 
 sync:
-```
+```javascript
 import { compareSemVer, isValidSemVer, parseSemVer } from 'semver-parser';
 ```
 
 async:
-```
+```javascript
 import { promises } from 'semver-parser';
 const { compareSemVer, isValidSemVer, parseSemVer } = promises;
 ```
@@ -75,180 +75,180 @@ Compare versions in SemVer format.
 ## [Backus–Naur Form Grammar for Valid SemVer Versions](https://github.com/mojombo/semver/blob/master/semver.md#backusnaur-form-grammar-for-valid-semver-versions "semver/semver.md at master · mojombo/semver") to JavaScript RegExp
 
 ### valid semver
-```
+```bnf
 <valid semver> ::= <version core>
                  | <version core> "-" <pre-release>
                  | <version core> "+" <build>
                  | <version core> "-" <pre-release> "+" <build>
 ```
-```
-(?:0|[1-9]\d*)(?:\.(?:0|[1-9]\d*)){2}(?:-(?:(?:0|[1-9]\d*|\d*[A-z-][A-z\d-]*)(?:\.(?:0|[1-9]\d*|\d*[A-z-][A-z\d-]*))*))?(?:\+(?:\d*[A-z-][A-z\d-]*|\d+)(?:\.(?:\d*[A-z-][A-z\d-]*|\d+))*)?
+```javascript
+(?:0|[1-9]\d*)(?:\.(?:0|[1-9]\d*)){2}(?:-(?:0|[1-9]\d*|\d*[A-Za-z-][\dA-Za-z-]*)(?:\.(?:0|[1-9]\d*|\d*[A-Za-z-][\dA-Za-z-]*))*)?(?:\+(?:\d*[A-Za-z-][\dA-Za-z-]*|\d+)(?:\.(?:\d*[A-Za-z-][\dA-Za-z-]*|\d+))*)?
 ```
 
 ### version core
-```
+```bnf
 <version core> ::= <major> "." <minor> "." <patch>
 ```
-```
+```javascript
 (?:0|[1-9]\d*)(?:\.(?:0|[1-9]\d*)){2}
 ```
 
 ### major
-```
+```bnf
 <major> ::= <numeric identifier>
 ```
-```
+```javascript
 0|[1-9]\d*
 ```
 
 ### minor
-```
+```bnf
 <minor> ::= <numeric identifier>
 ```
-```
+```javascript
 0|[1-9]\d*
 ```
 
 ### patch
-```
+```bnf
 <patch> ::= <numeric identifier>
 ```
-```
+```javascript
 0|[1-9]\d*
 ```
 
 ### pre-release
-```
+```bnf
 <pre-release> ::= <dot-separated pre-release identifiers>
 ```
-```
-(?:0|[1-9]\d*|\d*[A-z-][A-z\d-]*)(?:\.(?:0|[1-9]\d*|\d*[A-z-][A-z\d-]*))*
+```javascript
+(?:0|[1-9]\d*|\d*[A-Za-z-][\dA-Za-z-]*)(?:\.(?:0|[1-9]\d*|\d*[A-Za-z-][\dA-Za-z-]*))*
 ```
 
 ### dot-separated pre-release identifiers
-```
+```bnf
 <dot-separated pre-release identifiers> ::= <pre-release identifier>
                                           | <pre-release identifier> "." <dot-separated pre-release identifiers>
 ```
-```
-(?:0|[1-9]\d*|\d*[A-z-][A-z\d-]*)(?:\.(?:0|[1-9]\d*|\d*[A-z-][A-z\d-]*))*
+```javascript
+(?:0|[1-9]\d*|\d*[A-Za-z-][\dA-Za-z-]*)(?:\.(?:0|[1-9]\d*|\d*[A-Za-z-][\dA-Za-z-]*))*
 ```
 
 ### build
-```
+```bnf
 <build> ::= <dot-separated build identifiers>
 ```
-```
-(?:\d*[A-z-][A-z\d-]*|\d+)(?:\.(?:\d*[A-z-][A-z\d-]*|\d+))*
+```javascript
+(?:\d*[A-Za-z-][\dA-Za-z-]*|\d+)(?:\.(?:\d*[A-Za-z-][\dA-Za-z-]*|\d+))*
 ```
 
 ### dot-separated build identifiers
-```
+```bnf
 <dot-separated build identifiers> ::= <build identifier>
                                     | <build identifier> "." <dot-separated build identifiers>
 ```
-```
-(?:\d*[A-z-][A-z\d-]*|\d+)(?:\.(?:\d*[A-z-][A-z\d-]*|\d+))*
+```javascript
+(?:\d*[A-Za-z-][\dA-Za-z-]*|\d+)(?:\.(?:\d*[A-Za-z-][\dA-Za-z-]*|\d+))*
 ```
 
 ### pre-release identifier
-```
+```bnf
 <pre-release identifier> ::= <alphanumeric identifier>
                            | <numeric identifier>
 ```
-```
-0|[1-9]\d*|\d*[A-z-][A-z\d-]*
+```javascript
+0|[1-9]\d*|\d*[A-Za-z-][\dA-Za-z-]*
 ```
 
 ### build identifier
-```
+```bnf
 <build identifier> ::= <alphanumeric identifier>
                      | <digits>
 ```
-```
-\d*[A-z-][A-z\d-]*|\d+
+```javascript
+\d*[A-Za-z-][\dA-Za-z-]*|\d+
 ```
 
 ### alphanumeric identifier
-```
+```bnf
 <alphanumeric identifier> ::= <non-digit>
                             | <non-digit> <identifier characters>
                             | <identifier characters> <non-digit>
                             | <identifier characters> <non-digit> <identifier characters>
 ```
-```
-(?:[A-z\d-]+)?[A-z-](?:[A-z\d-]+)?
+```javascript
+[\dA-Za-z-]*[A-Za-z-][\dA-Za-z-]*
 ```
 optimized:
-```
-\d*[A-z-][A-z\d-]*
+```javascript
+\d*[A-Za-z-][\dA-Za-z-]*
 ```
 
 ### numeric identifier
-```
+```bnf
 <numeric identifier> ::= "0"
                        | <positive digit>
                        | <positive digit> <digits>
 ```
-```
+```javascript
 0|[1-9]\d*
 ```
 
 ### identifier characters
-```
+```bnf
 <identifier characters> ::= <identifier character>
                           | <identifier character> <identifier characters>
 ```
-```
-[A-z\d-]+
+```javascript
+[\dA-Za-z-]+
 ```
 
 ### identifier character
-```
+```bnf
 <identifier character> ::= <digit>
                          | <non-digit>
 ```
-```
-[A-z\d-]
+```javascript
+[\dA-Za-z-]
 ```
 
 ### non-digit
-```
+```bnf
 <non-digit> ::= <letter>
               | "-"
 ```
-```
-[A-z-]
+```javascript
+[A-Za-z-]
 ```
 
 ### digits
-```
+```bnf
 <digits> ::= <digit>
            | <digit> <digits>
 ```
-```
+```javascript
 \d+
 ```
 
 ### digit
-```
+```bnf
 <digit> ::= "0"
           | <positive digit>
 ```
-```
+```javascript
 \d
 ```
 
 ### positive digit
-```
+```bnf
 <positive digit> ::= "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
 ```
-```
+```javascript
 [1-9]
 ```
 
 ### letter
-```
+```bnf
 <letter> ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J"
            | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T"
            | "U" | "V" | "W" | "X" | "Y" | "Z" | "a" | "b" | "c" | "d"
@@ -256,6 +256,6 @@ optimized:
            | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x"
            | "y" | "z"
 ```
-```
-[A-z]
+```javascript
+[A-Za-z]
 ```
