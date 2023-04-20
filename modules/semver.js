@@ -1,6 +1,5 @@
 /**
  * semver.js
- *
  * @see {@link http://semver.org/|Semantic Versioning}
  * @see {@link https://github.com/mojombo/semver/|mojombo/semver}
  */
@@ -24,7 +23,6 @@ const REGEXP_SEMVER_STRICT = new RegExp(`^${SEMVER}$`);
 
 /**
  * parsed SemVer object
- *
  * @typedef {object} SemVerObject
  * @property {string} version - version string
  * @property {boolean} matches - matches SemVer format
@@ -37,7 +35,6 @@ const REGEXP_SEMVER_STRICT = new RegExp(`^${SEMVER}$`);
 
 /**
  * is valid SemVer string
- *
  * @param {string} version - version string
  * @param {boolean} [strict] - reject 'v' prefixed
  * @returns {boolean} - result
@@ -52,7 +49,6 @@ export const isValidSemVer = (version, strict = false) => {
 
 /**
  * parse version part
- *
  * @param {string} part - version part
  * @param {boolean} [nonPosInt] - accept non positive integer
  * @returns {string|number} - parsed version part
@@ -78,7 +74,6 @@ export const parseVersionPart = (part, nonPosInt = false) => {
 
 /**
  * compare SemVer
- *
  * @param {string} version - version string
  * @param {string} base - base version string to compare from
  * @param {boolean} [strict] - reject 'v' prefixed
@@ -167,7 +162,6 @@ export const compareSemVer = (version, base, strict = false) => {
 
 /**
  * parse SemVer string
- *
  * @param {string} version - version string
  * @param {boolean} [strict] - reject 'v' prefixed
  * @returns {SemVerObject} - result
@@ -197,7 +191,6 @@ export const parseSemVer = (version, strict = false) => {
 /* async wrappers */
 /**
  * compare SemVer (async)
- *
  * @param {string} version - version string
  * @param {string} base - base version string to compare from
  * @param {boolean} [strict] - reject 'v' prefixed
@@ -213,7 +206,6 @@ const compareSemVerAsync = async (version, base, strict = false) => {
 
 /**
  * is valid SemVer string (async)
- *
  * @param {string} version - version string
  * @param {boolean} [strict] - reject 'v' prefixed
  * @returns {Promise.<boolean>} - result
@@ -225,7 +217,6 @@ const isValidSemVerAsync = async (version, strict = false) => {
 
 /**
  * parse SemVer string (async)
- *
  * @param {string} version - version string
  * @param {boolean} [strict] - reject 'v' prefixed
  * @returns {Promise.<SemVerObject>} - result

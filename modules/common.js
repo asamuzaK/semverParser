@@ -8,7 +8,6 @@ const TYPE_TO = -1;
 
 /**
  * get type
- *
  * @param {*} o - object to check
  * @returns {string} - type of object
  */
@@ -17,7 +16,6 @@ export const getType = o =>
 
 /**
  * is string
- *
  * @param {*} o - object to check
  * @returns {boolean} - result
  */
