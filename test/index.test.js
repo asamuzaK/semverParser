@@ -4,10 +4,7 @@ import { describe, it } from 'mocha';
 
 /* test */
 import {
-  compareSemVer,
-  isValidSemVer,
-  parseSemVer,
-  promises
+  compareSemVer, isValidSemVer, parseSemVer, promises
 } from '../index.js';
 
 describe('Is Valid Semver', () => {
