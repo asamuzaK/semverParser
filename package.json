@@ -7,7 +7,7 @@
   "bugs": "https://github.com/asamuzaK/semverParser/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/asamuzaK/semverParser.git"
+    "url": "git+https://github.com/asamuzaK/semverParser.git"
   },
   "type": "module",
   "main": "index.js",
@@ -29,5 +29,5 @@
     "test": "c8 --reporter=text mocha --exit test",
     "tsc": "node -e \"fs.rmSync('types',{recursive:true,force:true})\" && npx tsc"
   },
-  "version": "4.1.5"
+  "version": "4.1.6"
 }
