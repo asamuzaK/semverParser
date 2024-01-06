@@ -71,7 +71,7 @@ describe('Parse SemVer', () => {
 describe('Compare SemVer (async)', () => {
   const func = promises.compareSemVer;
   it('should be function', () => {
-    assert.typeOf(func, 'function');
+    assert.strictEqual(typeof func, 'function');
   });
 
   it('should throw', async () => {
@@ -91,7 +91,7 @@ describe('Compare SemVer (async)', () => {
 describe('Is Valid SemVer String (async)', () => {
   const func = promises.isValidSemVer;
   it('should be function', () => {
-    assert.typeOf(func, 'function');
+    assert.strictEqual(typeof func, 'function');
   });
 
   it('should throw', async () => {
@@ -116,7 +116,7 @@ describe('Is Valid SemVer String (async)', () => {
 describe('Parse SemVer String (async)', () => {
   const func = promises.parseSemVer;
   it('should be function', () => {
-    assert.typeOf(func, 'function');
+    assert.strictEqual(typeof func, 'function');
   });
 
   it('should throw', async () => {
