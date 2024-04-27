@@ -1,5 +1,5 @@
 [![build](https://github.com/asamuzaK/semverParser/workflows/build/badge.svg)](https://github.com/asamuzaK/semverParser/actions?query=workflow%3Abuild)
-[![CodeQL](https://github.com/asamuzaK/semverParser/workflows/CodeQL/badge.svg)](https://github.com/asamuzaK/semverParser/actions?query=workflow%3ACodeQL)
+[![CodeQL](https://github.com/asamuzaK/semverParser/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/asamuzaK/semverParser/actions/workflows/github-code-scanning/codeql)
 [![npm](https://img.shields.io/npm/v/semver-parser)](https://www.npmjs.com/package/semver-parser)
 
 # SemVer Parser
