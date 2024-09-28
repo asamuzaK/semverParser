@@ -1,8 +1,8 @@
 import importX from 'eslint-plugin-import-x';
 import jsdoc from 'eslint-plugin-jsdoc';
 import regexp from 'eslint-plugin-regexp';
-import neostandard, { plugins as neostdplugins } from 'neostandard';
 import globals from 'globals';
+import neostandard, { plugins as neostdplugins } from 'neostandard';
 
 export default [
   {
