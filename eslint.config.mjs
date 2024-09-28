@@ -5,29 +5,24 @@ import globals from 'globals';
 import neostandard, { plugins as neostdplugins } from 'neostandard';
 
 export default [
-  {
-    ignores: ['src/lib', 'src/web-ext-config.cjs']
-  },
-  jsdoc.configs['flat/recommended'],
-  regexp.configs['flat/recommended'],
   ...neostandard({
     semi: true
   }),
+  jsdoc.configs['flat/recommended'],
+  regexp.configs['flat/recommended'],
   {
-    plugins: {
-      '@stylistic': neostdplugins['@stylistic'],
-      'import-x': importX,
-      regexp
+    languageOptions: {
+      globals: {
+        ...globals.node
+      }
     },
     linterOptions: {
       reportUnusedDisableDirectives: true
     },
-    languageOptions: {
-      globals: {
-        ...globals.node
-      },
-      ecmaVersion: 'latest',
-      sourceType: 'module'
+    plugins: {
+      '@stylistic': neostdplugins['@stylistic'],
+      'import-x': importX,
+      regexp
     },
     rules: {
       '@stylistic/space-before-function-paren': ['error', {
