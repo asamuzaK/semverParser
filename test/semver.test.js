@@ -1,5 +1,5 @@
 /* api */
-import { assert } from 'chai';
+import { strict as assert } from 'node:assert';
 import { describe, it } from 'mocha';
 
 /* test */
@@ -13,7 +13,7 @@ import {
 
 describe('Is Valid Semver', () => {
   it('should be function', () => {
-    assert.typeOf(isValidSemVer, 'function');
+    assert.strictEqual(typeof isValidSemVer, 'function');
   });
 
   it('should throw', () => {
@@ -21,121 +21,121 @@ describe('Is Valid Semver', () => {
   });
 
   it('should be true', () => {
-    assert.isTrue(isValidSemVer('1.0.0'));
+    assert.strictEqual(isValidSemVer('1.0.0'), true);
   });
 
   it('should be true', () => {
-    assert.isTrue(isValidSemVer('0.0.0'));
+    assert.strictEqual(isValidSemVer('0.0.0'), true);
   });
 
   it('should be true', () => {
-    assert.isTrue(isValidSemVer('1.0.99999'));
+    assert.strictEqual(isValidSemVer('1.0.99999'), true);
   });
 
   it('should be true', () => {
-    assert.isTrue(isValidSemVer('v1.0.0'));
+    assert.strictEqual(isValidSemVer('v1.0.0'), true);
   });
 
   it('should be false if v prefixed and 2nd param is true', () => {
-    assert.isFalse(isValidSemVer('v1.0.0', true));
+    assert.strictEqual(isValidSemVer('v1.0.0', true), false);
   });
 
   it('should be false if version part lacks one of x.y.z', () => {
-    assert.isFalse(isValidSemVer('0'));
+    assert.strictEqual(isValidSemVer('0'), false);
   });
 
   it('should be false if version part lacks one of x.y.z', () => {
-    assert.isFalse(isValidSemVer('1.0'));
+    assert.strictEqual(isValidSemVer('1.0'), false);
   });
 
   it('should be false if there is more than 3 version parts', () => {
-    assert.isFalse(isValidSemVer('1.0.0.0'));
+    assert.strictEqual(isValidSemVer('1.0.0.0'), false);
   });
 
   it('should be false if version part contains leading 0 integer', () => {
-    assert.isFalse(isValidSemVer('1.0.01'));
+    assert.strictEqual(isValidSemVer('1.0.01'), false);
   });
 
   it('should be false if 0 is omitted', () => {
-    assert.isFalse(isValidSemVer('.1.1'));
+    assert.strictEqual(isValidSemVer('.1.1'), false);
   });
 
   it('should be false if 0 is omitted', () => {
-    assert.isFalse(isValidSemVer('1.1.'));
+    assert.strictEqual(isValidSemVer('1.1.'), false);
   });
 
   it('should be false if version part contains negative integer', () => {
-    assert.isFalse(isValidSemVer('1.0.-1'));
+    assert.strictEqual(isValidSemVer('1.0.-1'), false);
   });
 
   it('should be true', () => {
-    assert.isTrue(isValidSemVer('1.0.0-a'));
+    assert.strictEqual(isValidSemVer('1.0.0-a'), true);
   });
 
   it('should be true', () => {
-    assert.isTrue(isValidSemVer('1.0.0-0'));
+    assert.strictEqual(isValidSemVer('1.0.0-0'), true);
   });
 
   it('should be true', () => {
-    assert.isTrue(isValidSemVer('1.0.0-a.1'));
+    assert.strictEqual(isValidSemVer('1.0.0-a.1'), true);
   });
 
   it('should be true', () => {
-    assert.isTrue(isValidSemVer('1.0.0-0.1'));
+    assert.strictEqual(isValidSemVer('1.0.0-0.1'), true);
   });
 
   it('should be true', () => {
-    assert.isTrue(isValidSemVer('1.0.0-0.a.0'));
+    assert.strictEqual(isValidSemVer('1.0.0-0.a.0'), true);
   });
 
   it('should be true', () => {
-    assert.isTrue(isValidSemVer('1.0.0-a1b1'));
+    assert.strictEqual(isValidSemVer('1.0.0-a1b1'), true);
   });
 
   it('should be true', () => {
-    assert.isTrue(isValidSemVer('1.0.0-1a1b'));
+    assert.strictEqual(isValidSemVer('1.0.0-1a1b'), true);
   });
 
   it('should be false if pre part is not separeted by hyphen', () => {
-    assert.isFalse(isValidSemVer('1.0.0a'));
+    assert.strictEqual(isValidSemVer('1.0.0a'), false);
   });
 
   it('should be false if pre part is not separeted by hyphen', () => {
-    assert.isFalse(isValidSemVer('1.0.0.a.1'));
+    assert.strictEqual(isValidSemVer('1.0.0.a.1'), false);
   });
 
   it('should be false if pre part contains leading 0 integer', () => {
-    assert.isFalse(isValidSemVer('1.0.0-0.a.01'));
+    assert.strictEqual(isValidSemVer('1.0.0-0.a.01'), false);
   });
 
   it('should be true even if pre part contains negative integer', () => {
-    assert.isTrue(isValidSemVer('1.0.0-0.a.-1'));
+    assert.strictEqual(isValidSemVer('1.0.0-0.a.-1'), true);
   });
 
   it('should be true', () => {
-    assert.isTrue(isValidSemVer('1.0.0-a+1'));
+    assert.strictEqual(isValidSemVer('1.0.0-a+1'), true);
   });
 
   it('should be true', () => {
-    assert.isTrue(isValidSemVer('1.0.0-beta+exp.sha.5114f85'));
+    assert.strictEqual(isValidSemVer('1.0.0-beta+exp.sha.5114f85'), true);
   });
 
   it('should be true', () => {
-    assert.isTrue(isValidSemVer('1.0.0+20130313144700'));
+    assert.strictEqual(isValidSemVer('1.0.0+20130313144700'), true);
   });
 
   it('should be true even if build contains leading 0 integer', () => {
-    assert.isTrue(isValidSemVer('1.0.0-a+01'));
+    assert.strictEqual(isValidSemVer('1.0.0-a+01'), true);
   });
 
   it('should be true even if build contains negative integer', () => {
-    assert.isTrue(isValidSemVer('1.0.0-a+-1'));
+    assert.strictEqual(isValidSemVer('1.0.0-a+-1'), true);
   });
 });
 
 describe('Parse Version Part', () => {
   it('should be function', () => {
-    assert.typeOf(parseVersionPart, 'function');
+    assert.strictEqual(typeof parseVersionPart, 'function');
   });
 
   it('should throw', () => {
@@ -218,7 +218,7 @@ describe('Parse Version Part', () => {
 
 describe('Compare SemVer', () => {
   it('should be function', () => {
-    assert.typeOf(compareSemVer, 'function');
+    assert.strictEqual(typeof compareSemVer, 'function');
   });
 
   it('should throw', () => {
@@ -310,141 +310,151 @@ describe('Compare SemVer', () => {
   });
 
   it('should be greater than 0', () => {
-    assert.isAbove(compareSemVer('2.0.0', '1.0.0'), 0);
+    assert.strictEqual(compareSemVer('2.0.0', '1.0.0') > 0, true);
   });
 
   it('should be greater than 0', () => {
-    assert.isAbove(compareSemVer('2.0.0', '1.0.0', true), 0);
+    assert.strictEqual(compareSemVer('2.0.0', '1.0.0', true) > 0, true);
   });
 
   it('should be greater than 0', () => {
-    assert.isAbove(compareSemVer('1.1.0', '1.0.0'), 0);
+    assert.strictEqual(compareSemVer('1.1.0', '1.0.0') > 0, true);
   });
 
   it('should be greater than 0', () => {
-    assert.isAbove(compareSemVer('1.0.1', '1.0.0'), 0);
+    assert.strictEqual(compareSemVer('1.0.1', '1.0.0') > 0, true);
   });
 
   it('should be greater than 0', () => {
-    assert.isAbove(compareSemVer('1.0.9007199254740991', '1.0.0'), 0);
+    assert.strictEqual(compareSemVer('1.0.9007199254740991', '1.0.0') > 0,
+      true);
   });
 
   it('should be greater than 0', () => {
-    assert.isAbove(compareSemVer('1.0.0', '1.0.0-a'), 0);
+    assert.strictEqual(compareSemVer('1.0.0', '1.0.0-a') > 0, true);
   });
 
   it('should be greater than 0', () => {
-    assert.isAbove(compareSemVer('1.0.0', '1.0.0-9007199254740992'), 0);
+    assert.strictEqual(compareSemVer('1.0.0', '1.0.0-9007199254740992') > 0,
+      true);
   });
 
   it('should be greater than 0', () => {
-    assert.isAbove(compareSemVer('1.0.0-a.1', '1.0.0-a'), 0);
+    assert.strictEqual(compareSemVer('1.0.0-a.1', '1.0.0-a') > 0, true);
   });
 
   it('should be greater than 0', () => {
-    assert.isAbove(compareSemVer('1.0.0-a.10', '1.0.0-a.9'), 0);
+    assert.strictEqual(compareSemVer('1.0.0-a.10', '1.0.0-a.9') > 0, true);
   });
 
   it('should be greater than 0', () => {
-    assert.isAbove(compareSemVer('1.0.0-a.b', '1.0.0-a.1'), 0);
+    assert.strictEqual(compareSemVer('1.0.0-a.b', '1.0.0-a.1') > 0, true);
   });
 
   it('should be greater than 0', () => {
-    assert.isAbove(compareSemVer('1.0.0-a.-1', '1.0.0-a.1'), 0);
+    assert.strictEqual(compareSemVer('1.0.0-a.-1', '1.0.0-a.1') > 0, true);
   });
 
   it('should be less than 0', () => {
-    assert.isAbove(compareSemVer('1.0.0-beta.1.11', '1.0.0-beta.1.2'), 0);
+    assert.strictEqual(compareSemVer('1.0.0-beta.1.11', '1.0.0-beta.1.2') > 0,
+      true);
   });
 
   it('should be less than 0', () => {
-    assert.isBelow(compareSemVer('1.0.0', '2.0.0'), 0);
+    assert.strictEqual(compareSemVer('1.0.0', '2.0.0') < 0, true);
   });
 
   it('should be less than 0', () => {
-    assert.isBelow(compareSemVer('1.0.0', '2.0.0', true), 0);
+    assert.strictEqual(compareSemVer('1.0.0', '2.0.0', true) < 0, true);
   });
 
   it('should be less than 0', () => {
-    assert.isBelow(compareSemVer('1.0.0', '1.1.0'), 0);
+    assert.strictEqual(compareSemVer('1.0.0', '1.1.0') < 0, true);
   });
 
   it('should be less than 0', () => {
-    assert.isBelow(compareSemVer('1.0.0', '1.0.1'), 0);
+    assert.strictEqual(compareSemVer('1.0.0', '1.0.1') < 0, true);
   });
 
   it('should be less than 0', () => {
-    assert.isBelow(compareSemVer('1.0.0-a', '1.0.0'), 0);
+    assert.strictEqual(compareSemVer('1.0.0-a', '1.0.0') < 0, true);
   });
 
   it('should be less than 0', () => {
-    assert.isBelow(compareSemVer('1.0.0-a', '1.0.0', true), 0);
+    assert.strictEqual(compareSemVer('1.0.0-a', '1.0.0', true) < 0, true);
   });
 
   it('should be less than 0', () => {
-    assert.isBelow(compareSemVer('1.0.0-a', '1.0.0-alpha'), 0);
+    assert.strictEqual(compareSemVer('1.0.0-a', '1.0.0-alpha') < 0, true);
   });
 
   it('should be less than 0', () => {
-    assert.isBelow(compareSemVer('1.0.0-alpha', '1.0.0-b'), 0);
+    assert.strictEqual(compareSemVer('1.0.0-alpha', '1.0.0-b') < 0, true);
   });
 
   it('should be less than 0', () => {
-    assert.isBelow(compareSemVer('1.0.0-b', '1.0.0-beta'), 0);
+    assert.strictEqual(compareSemVer('1.0.0-b', '1.0.0-beta') < 0, true);
   });
 
   it('should be less than 0', () => {
-    assert.isBelow(compareSemVer('1.0.0-beta', '1.0.0-pre'), 0);
+    assert.strictEqual(compareSemVer('1.0.0-beta', '1.0.0-pre') < 0, true);
   });
 
   it('should be less than 0', () => {
-    assert.isBelow(compareSemVer('1.0.0-pre', '1.0.0-rc'), 0);
+    assert.strictEqual(compareSemVer('1.0.0-pre', '1.0.0-rc') < 0, true);
   });
 
   it('should be less than 0', () => {
-    assert.isBelow(compareSemVer('1.0.0-rc', '1.0.0'), 0);
+    assert.strictEqual(compareSemVer('1.0.0-rc', '1.0.0') < 0, true);
   });
 
   it('should be less than 0', () => {
-    assert.isBelow(compareSemVer('1.0.0-alpha', '1.0.0-alpha.1'), 0);
+    assert.strictEqual(compareSemVer('1.0.0-alpha', '1.0.0-alpha.1') < 0,
+      true);
   });
 
   it('should be less than 0', () => {
-    assert.isBelow(compareSemVer('1.0.0-alpha', '1.0.0-alpha.1', true), 0);
+    assert.strictEqual(compareSemVer('1.0.0-alpha', '1.0.0-alpha.1', true) < 0,
+      true);
   });
 
   it('should be less than 0', () => {
-    assert.isBelow(compareSemVer('1.0.0-alpha.1', '1.0.0-alpha.beta'), 0);
+    assert.strictEqual(compareSemVer('1.0.0-alpha.1', '1.0.0-alpha.beta') < 0,
+      true);
   });
 
   it('should be less than 0', () => {
-    assert.isBelow(compareSemVer('1.0.0-alpha.beta', '1.0.0-beta'), 0);
+    assert.strictEqual(compareSemVer('1.0.0-alpha.beta', '1.0.0-beta') < 0,
+      true);
   });
 
   it('should be less than 0', () => {
-    assert.isBelow(compareSemVer('1.0.0-beta', '1.0.0-beta.2'), 0);
+    assert.strictEqual(compareSemVer('1.0.0-beta', '1.0.0-beta.2') < 0, true);
   });
 
   it('should be less than 0', () => {
-    assert.isBelow(compareSemVer('1.0.0-beta.2', '1.0.0-beta.11'), 0);
+    assert.strictEqual(compareSemVer('1.0.0-beta.2', '1.0.0-beta.11') < 0,
+      true);
   });
 
   it('should be less than 0', () => {
-    assert.isBelow(compareSemVer('1.0.0-beta.1.2', '1.0.0-beta.1.11'), 0);
+    assert.strictEqual(compareSemVer('1.0.0-beta.1.2', '1.0.0-beta.1.11') < 0,
+      true);
   });
 
   it('should be less than 0', () => {
-    assert.isBelow(compareSemVer('1.0.0-beta.11', '1.0.0-rc.1'), 0);
+    assert.strictEqual(compareSemVer('1.0.0-beta.11', '1.0.0-rc.1') < 0,
+      true);
   });
 
   it('should be less than 0', () => {
-    assert.isBelow(compareSemVer('1.0.0-rc.1', '1.0.0'), 0);
+    assert.strictEqual(compareSemVer('1.0.0-rc.1', '1.0.0') < 0, true);
   });
 });
 
 describe('Parse SemVer', () => {
   it('should be function', () => {
-    assert.typeOf(parseSemVer, 'function');
+    assert.strictEqual(typeof parseSemVer, 'function');
   });
 
   it('should throw', () => {
@@ -781,31 +791,28 @@ describe('Compare SemVer (async)', () => {
 
   it('should throw', async () => {
     await func().catch(e => {
-      assert.instanceOf(e, TypeError, 'error');
-      assert.strictEqual(e.message, 'Expected String but got Undefined.',
-        'message');
+      assert.deepStrictEqual(e,
+        new TypeError('Expected String but got Undefined.'));
     });
   });
 
   it('should throw', async () => {
     await func('v1.0.0').catch(e => {
-      assert.instanceOf(e, TypeError, 'error');
-      assert.strictEqual(e.message, 'Expected String but got Undefined.',
-        'message');
+      assert.deepStrictEqual(e,
+        new TypeError('Expected String but got Undefined.'));
     });
   });
 
   it('should throw', async () => {
     await func('v1.0.0', 'v1.0.1', true).catch(e => {
-      assert.instanceOf(e, Error, 'error');
-      assert.strictEqual(e.message, 'v1.0.0 is not valid version string.',
-        'message');
+      assert.deepStrictEqual(e,
+        new Error('Invalid version string: v1.0.0'));
     });
   });
 
   it('should be greater than 0', async () => {
     const res = await func('1.0.1', '1.0.0');
-    assert.isAbove(res, 0);
+    assert.strictEqual(res > 0, true);
   });
 });
 
@@ -817,20 +824,19 @@ describe('Is Valid SemVer String (async)', () => {
 
   it('should throw', async () => {
     await func().catch(e => {
-      assert.instanceOf(e, TypeError, 'error');
-      assert.strictEqual(e.message, 'Expected String but got Undefined.',
-        'message');
+      assert.deepStrictEqual(e,
+        new TypeError('Expected String but got Undefined.'));
     });
   });
 
   it('should be true', async () => {
     const res = await func('1.0.0');
-    assert.isTrue(res);
+    assert.strictEqual(res, true);
   });
 
   it('should be false', async () => {
     const res = await func('v1.0.0', true);
-    assert.isFalse(res);
+    assert.strictEqual(res, false);
   });
 });
 
@@ -842,9 +848,8 @@ describe('Parse SemVer String (async)', () => {
 
   it('should throw', async () => {
     await func().catch(e => {
-      assert.instanceOf(e, TypeError, 'error');
-      assert.strictEqual(e.message, 'Expected String but got Undefined.',
-        'message');
+      assert.deepStrictEqual(e,
+        new TypeError('Expected String but got Undefined.'));
     });
   });
 

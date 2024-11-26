@@ -1,5 +1,5 @@
 /* api */
-import { assert } from 'chai';
+import { strict as assert } from 'node:assert';
 import { describe, it } from 'mocha';
 
 /* test */
@@ -9,7 +9,7 @@ import {
 
 describe('Is Valid Semver', () => {
   it('should be function', () => {
-    assert.typeOf(isValidSemVer, 'function');
+    assert.strictEqual(typeof isValidSemVer, 'function');
   });
 
   it('should throw', () => {
@@ -19,18 +19,18 @@ describe('Is Valid Semver', () => {
 
   it('should get result', () => {
     const res = isValidSemVer('1.0.0');
-    assert.isTrue(res);
+    assert.strictEqual(res, true);
   });
 
   it('should get result', () => {
     const res = isValidSemVer('v1.0.0', true);
-    assert.isFalse(res);
+    assert.strictEqual(res, false);
   });
 });
 
 describe('Compare SemVer', () => {
   it('should be function', () => {
-    assert.typeOf(compareSemVer, 'function');
+    assert.strictEqual(typeof compareSemVer, 'function');
   });
 
   it('should throw', () => {
@@ -40,13 +40,13 @@ describe('Compare SemVer', () => {
 
   it('should get result', () => {
     const res = compareSemVer('1.0.1', '1.0.0');
-    assert.isAbove(res, 0);
+    assert.strictEqual(res > 0, true);
   });
 });
 
 describe('Parse SemVer', () => {
   it('should be function', () => {
-    assert.typeOf(parseSemVer, 'function');
+    assert.strictEqual(typeof parseSemVer, 'function');
   });
 
   it('should throw', () => {
@@ -76,15 +76,14 @@ describe('Compare SemVer (async)', () => {
 
   it('should throw', async () => {
     await func().catch(e => {
-      assert.instanceOf(e, TypeError, 'error');
-      assert.strictEqual(e.message, 'Expected String but got Undefined.',
-        'message');
+      assert.deepStrictEqual(e,
+        new TypeError('Expected String but got Undefined.'));
     });
   });
 
   it('should get result', async () => {
     const res = await func('1.0.1', '1.0.0');
-    assert.isAbove(res, 0);
+    assert.strictEqual(res > 0, true);
   });
 });
 
@@ -96,20 +95,19 @@ describe('Is Valid SemVer String (async)', () => {
 
   it('should throw', async () => {
     await func().catch(e => {
-      assert.instanceOf(e, TypeError, 'error');
-      assert.strictEqual(e.message, 'Expected String but got Undefined.',
-        'message');
+      assert.deepStrictEqual(e,
+        new TypeError('Expected String but got Undefined.'));
     });
   });
 
   it('should get result', async () => {
     const res = await func('1.0.0');
-    assert.isTrue(res);
+    assert.strictEqual(res, true);
   });
 
   it('should get result', async () => {
     const res = await func('v1.0.0', true);
-    assert.isFalse(res);
+    assert.strictEqual(res, false);
   });
 });
 
@@ -121,9 +119,8 @@ describe('Parse SemVer String (async)', () => {
 
   it('should throw', async () => {
     await func().catch(e => {
-      assert.instanceOf(e, TypeError, 'error');
-      assert.strictEqual(e.message, 'Expected String but got Undefined.',
-        'message');
+      assert.deepStrictEqual(e,
+        new TypeError('Expected String but got Undefined.'));
     });
   });
 

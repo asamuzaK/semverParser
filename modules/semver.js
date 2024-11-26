@@ -90,10 +90,10 @@ export const compareSemVer = (version, base, strict = false) => {
     throw new TypeError(`Expected String but got ${getType(base)}.`);
   }
   if (!isValidSemVer(version, !!strict)) {
-    throw new Error(`${version} is not valid version string.`);
+    throw new Error(`Invalid version string: ${version}`);
   }
   if (!isValidSemVer(base, !!strict)) {
-    throw new Error(`${base} is not valid version string.`);
+    throw new Error(`Invalid version string: ${base}`);
   }
   let result;
   if (version === base) {
