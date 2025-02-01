@@ -1,1 +1,1 @@
-export { compareSemVer, isValidSemVer, parseSemVer, promises } from './modules/semver.js';
+export { compareSemVer, isValidSemVer, parseSemVer, promises } from "./modules/semver.js";
