@@ -40,7 +40,8 @@ export default [
         classes: true,
         functions: true,
         variables: true
-      }]
+      }],
+      'prefer-object-has-own': 'error'
     }
   }
 ];
