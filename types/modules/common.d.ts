@@ -1,2 +1,2 @@
-export function getType(o: any): string;
-export function isString(o: any): boolean;
+export function getType(o: object): string;
+export function isString(o: object): boolean;
