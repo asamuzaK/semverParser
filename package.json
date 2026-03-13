@@ -11,17 +11,17 @@
   },
   "type": "module",
   "exports": {
-    "default": {
+    ".": {
       "types": "./types/index.d.ts",
       "default": "./index.js"
-    }
+    },
+    "./package.json": "./package.json"
   },
-  "types": "types/index.d.ts",
   "devDependencies": {
     "c8": "^11.0.0",
     "eslint": "^9.39.4",
-    "eslint-plugin-jsdoc": "^62.7.1",
-    "eslint-plugin-regexp": "^3.0.0",
+    "eslint-plugin-jsdoc": "^62.8.0",
+    "eslint-plugin-regexp": "^3.1.0",
     "globals": "^17.4.0",
     "mocha": "^11.7.5",
     "neostandard": "^0.13.0",
