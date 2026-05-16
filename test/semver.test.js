@@ -450,6 +450,18 @@ describe('Compare SemVer', () => {
   it('should be less than 0', () => {
     assert.strictEqual(compareSemVer('1.0.0-rc.1', '1.0.0') < 0, true);
   });
+
+  it('should be less than 0 (ASCII sort order: "B" < "a")', () => {
+    assert.strictEqual(compareSemVer('1.0.0-B', '1.0.0-a') < 0, true);
+  });
+
+  it('should be greater than 0 (ASCII sort order: "a" > "B")', () => {
+    assert.strictEqual(compareSemVer('1.0.0-a', '1.0.0-B') > 0, true);
+  });
+
+  it('should be less than 0 (ASCII sort order: "-" < "a")', () => {
+    assert.strictEqual(compareSemVer('1.0.0--', '1.0.0-a') < 0, true);
+  });
 });
 
 describe('Parse SemVer', () => {
