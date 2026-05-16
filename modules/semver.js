@@ -191,6 +191,7 @@ export const parseSemVer = (version, strict = false) => {
 /* async wrappers */
 /**
  * compare SemVer (async)
+ * @deprecated
  * @param {string} version - version string
  * @param {string} base - base version string to compare from
  * @param {boolean} [strict] - reject 'v' prefixed
@@ -206,6 +207,7 @@ const compareSemVerAsync = async (version, base, strict = false) => {
 
 /**
  * is valid SemVer string (async)
+ * @deprecated
  * @param {string} version - version string
  * @param {boolean} [strict] - reject 'v' prefixed
  * @returns {Promise.<boolean>} - result
@@ -217,6 +219,7 @@ const isValidSemVerAsync = async (version, strict = false) => {
 
 /**
  * parse SemVer string (async)
+ * @deprecated
  * @param {string} version - version string
  * @param {boolean} [strict] - reject 'v' prefixed
  * @returns {Promise.<SemVerObject>} - result
@@ -226,7 +229,14 @@ const parseSemVerAsync = async (version, strict = false) => {
   return res;
 };
 
-/* export async functions */
+/**
+ * export async functions
+ * @deprecated This asynchronous API is deprecated and will be removed in a
+ * future major release.
+ * Please use the synchronous counterparts (e.g., `compareSemVer`) instead.
+ * Since the underlying implementation is purely synchronous, these async
+ * wrappers provide no performance benefit.
+ */
 export const promises = {
   compareSemVer: compareSemVerAsync,
   isValidSemVer: isValidSemVerAsync,
