@@ -4,251 +4,244 @@
 
 # SemVer Parser
 
-Parse, verify, compare [SemVer](https://semver.org/ "Semantic Versioning 2.0.0 | Semantic Versioning").
+A lightweight parser to parse, verify, and compare [Semantic Versioning 2.0.0](https://semver.org/).
+
+## Features
+
+* **Strict Specification Compliance**: Strictly complies with SemVer 2.0.0 specifications
+* **Safe Parsing**: Prevents `MAX_SAFE_INTEGER` overflow issues
+* **Zero Dependencies**
+* **Pure ESM with TypeScript Support**
 
 ## Install
 
-```console
-npm install semver-parser
+``` shell
+npm i semver-parser
 ```
 
-## API
+## Usage
 
-APIs can be used either synchronously or asynchronously.
-Async function returns Promise which resolves with the result.
-
-sync:
 ```javascript
 import { compareSemVer, isValidSemVer, parseSemVer } from 'semver-parser';
 ```
 
-async:
-```javascript
-import { promises } from 'semver-parser';
-const { compareSemVer, isValidSemVer, parseSemVer } = promises;
-```
+### WARNING: Deprecation Notice for Async APIs
 
-NOTE: [Is &quot;v1.2.3&quot; a semantic version?](https://github.com/mojombo/semver/blob/master/semver.md#is-v123-a-semantic-version "semver/semver.md at master · mojombo/semver")
+The asynchronous wrappers (e.g., `import { promises } from 'semver-parser'`) are deprecated and will be removed in a future major release.
+Since the underlying implementation is purely synchronous, the async wrappers provide no performance benefit.
+Please use the synchronous APIs.
+
+### About the "v" prefix
+
+According to the SemVer specification, [Is &quot;v1.2.3&quot; a semantic version?](https://github.com/mojombo/semver/blob/master/semver.md#is-v123-a-semantic-version):
 
 > Is "v1.2.3" a semantic version?
 >
 > No, "v1.2.3" is not a semantic version. However, prefixing a semantic version with a "v" is a common way (in English) to indicate it is a version number.
 
-For ease of use, this parser supports "v" prefixed string.
-If you do not want to accept "v" prefix, set `strict` param to `true`.
+For ease of use, this parser accepts the "v" prefix by default.
+If you want to strictly reject the "v" prefix, set the `strict` parameter to `true` in any of the APIs.
 
-### parseSemVer(version, strict)
+## API Reference
 
-Parses version string.
+### parseSemVer(version, [strict])
 
-* @param {string} version - version string
-* @param {boolean} [strict] - reject 'v' prefixed
-* @returns {Object} - parsed result, contains properties below
-  - version {string} - given version string
-  - matches {boolean} - matches SemVer format
-  - major {number|undefined} - major version
-  - minor {number|undefined} - minor version
-  - patch {number|undefined} - patch version
-  - pre {Array&lt;string|number&gt;|undefined} - pre release version in array
-  - build {Array&lt;string|number&gt;|undefined} - build ID in array
+Parses a version string.
 
-### isValidSemVer(version, strict)
+* `version` **{string}** The version string to parse.
+* `[strict]` **{boolean}**  If `true`, strict mode is enabled (rejects 'v' prefix).
+* **Returns** **{object}** Parsed result containing the following properties:
+  - `version` **{string}** The given version string
+  - `matches` **{boolean}** Whether it matches the SemVer format
+  - `major` **{number|undefined}** Major version
+  - `minor` **{number|undefined}** Minor version
+  - `patch` **{number|undefined}** Patch version
+  - `pre` **{Array&lt;string|number&gt;|undefined}** Pre-release version parts
+  - `build` **{Array&lt;string|number&gt;|undefined}** Build ID parts
+
+### isValidSemVer(version, [strict])
 
 Determine whether the given argument is a valid SemVer string.
 
-* @param {string} version - version string
-* @param {boolean} [strict] - reject 'v' prefixed
-* @returns {boolean} - result
+* `version` **{string}** The version string to verify.
+* `[strict]` **{boolean}**  If `true`, strict mode is enabled (rejects 'v' prefix).
+* **Returns** **{boolean}** `true` if valid, `false` otherwise.
 
-### compareSemVer(version, base, strict)
+### compareSemVer(version, base, [strict])
 
-Compare versions in SemVer format.
+Compares two versions in SemVer format.
 
-* @param {string} version - version string
-* @param {string} base - base version string to compare from
-* @param {boolean} [strict] - reject 'v' prefixed
-* @returns {number}
-  - -1 or negative number, if version is less than base version
-  - 0, if version is equal to base version
-  - 1 or positive number, if version is greater than base version
+* `version` **{string}** The version string to evaluate.
+* `base` **{string}** The base version string to compare against.
+* `[strict]` **{boolean}**  If `true`, strict mode is enabled (rejects 'v' prefix).
+* **Returns** **{number}**
+  - -1 or negative number, if `version` is **less than** `base` version
+  - 0, if `version` is **equal to** `base` version
+  - 1 or positive number, if `version` is **greater than** `base` version
 
-## [Backus–Naur Form Grammar for Valid SemVer Versions](https://github.com/mojombo/semver/blob/master/semver.md#backusnaur-form-grammar-for-valid-semver-versions "semver/semver.md at master · mojombo/semver") to JavaScript RegExp
+## Grammer
+
+The regular expressions used in this parser are translated from the [Backus–Naur Form Grammar for Valid SemVer Versions](https://github.com/mojombo/semver/blob/master/semver.md#backusnaur-form-grammar-for-valid-semver-versions)
 
 ### valid semver
-```bnf
+``` bnf
 <valid semver> ::= <version core>
                  | <version core> "-" <pre-release>
                  | <version core> "+" <build>
                  | <version core> "-" <pre-release> "+" <build>
 ```
-```javascript
+``` javascript
 (?:0|[1-9]\d*)(?:\.(?:0|[1-9]\d*)){2}(?:-(?:0|[1-9]\d*|\d*[A-Za-z-][\dA-Za-z-]*)(?:\.(?:0|[1-9]\d*|\d*[A-Za-z-][\dA-Za-z-]*))*)?(?:\+(?:\d*[A-Za-z-][\dA-Za-z-]*|\d+)(?:\.(?:\d*[A-Za-z-][\dA-Za-z-]*|\d+))*)?
 ```
 
 ### version core
-```bnf
+``` bnf
 <version core> ::= <major> "." <minor> "." <patch>
 ```
-```javascript
+``` javascript
 (?:0|[1-9]\d*)(?:\.(?:0|[1-9]\d*)){2}
 ```
 
-### major
-```bnf
+### major / minor / patch
+``` bnf
 <major> ::= <numeric identifier>
 ```
-```javascript
-0|[1-9]\d*
-```
-
-### minor
-```bnf
-<minor> ::= <numeric identifier>
-```
-```javascript
-0|[1-9]\d*
-```
-
-### patch
-```bnf
-<patch> ::= <numeric identifier>
-```
-```javascript
+``` javascript
 0|[1-9]\d*
 ```
 
 ### pre-release
-```bnf
+``` bnf
 <pre-release> ::= <dot-separated pre-release identifiers>
 ```
-```javascript
+``` javascript
 (?:0|[1-9]\d*|\d*[A-Za-z-][\dA-Za-z-]*)(?:\.(?:0|[1-9]\d*|\d*[A-Za-z-][\dA-Za-z-]*))*
 ```
 
 ### dot-separated pre-release identifiers
-```bnf
+``` bnf
 <dot-separated pre-release identifiers> ::= <pre-release identifier>
                                           | <pre-release identifier> "." <dot-separated pre-release identifiers>
 ```
-```javascript
+``` javascript
 (?:0|[1-9]\d*|\d*[A-Za-z-][\dA-Za-z-]*)(?:\.(?:0|[1-9]\d*|\d*[A-Za-z-][\dA-Za-z-]*))*
 ```
 
 ### build
-```bnf
+``` bnf
 <build> ::= <dot-separated build identifiers>
 ```
-```javascript
+``` javascript
 (?:\d*[A-Za-z-][\dA-Za-z-]*|\d+)(?:\.(?:\d*[A-Za-z-][\dA-Za-z-]*|\d+))*
 ```
 
 ### dot-separated build identifiers
-```bnf
+``` bnf
 <dot-separated build identifiers> ::= <build identifier>
                                     | <build identifier> "." <dot-separated build identifiers>
 ```
-```javascript
+``` javascript
 (?:\d*[A-Za-z-][\dA-Za-z-]*|\d+)(?:\.(?:\d*[A-Za-z-][\dA-Za-z-]*|\d+))*
 ```
 
 ### pre-release identifier
-```bnf
+``` bnf
 <pre-release identifier> ::= <alphanumeric identifier>
                            | <numeric identifier>
 ```
-```javascript
+``` javascript
 0|[1-9]\d*|\d*[A-Za-z-][\dA-Za-z-]*
 ```
 
 ### build identifier
-```bnf
+``` bnf
 <build identifier> ::= <alphanumeric identifier>
                      | <digits>
 ```
-```javascript
+``` javascript
 \d*[A-Za-z-][\dA-Za-z-]*|\d+
 ```
 
 ### alphanumeric identifier
-```bnf
+``` bnf
 <alphanumeric identifier> ::= <non-digit>
                             | <non-digit> <identifier characters>
                             | <identifier characters> <non-digit>
                             | <identifier characters> <non-digit> <identifier characters>
 ```
-```javascript
+``` javascript
 [\dA-Za-z-]*[A-Za-z-][\dA-Za-z-]*
 ```
 optimized:
-```javascript
+``` javascript
 \d*[A-Za-z-][\dA-Za-z-]*
 ```
 
 ### numeric identifier
-```bnf
+``` bnf
 <numeric identifier> ::= "0"
                        | <positive digit>
                        | <positive digit> <digits>
 ```
-```javascript
+``` javascript
 0|[1-9]\d*
 ```
 
 ### identifier characters
-```bnf
+``` bnf
 <identifier characters> ::= <identifier character>
                           | <identifier character> <identifier characters>
 ```
-```javascript
+``` javascript
 [\dA-Za-z-]+
 ```
 
 ### identifier character
-```bnf
+``` bnf
 <identifier character> ::= <digit>
                          | <non-digit>
 ```
-```javascript
+``` javascript
 [\dA-Za-z-]
 ```
 
 ### non-digit
-```bnf
+``` bnf
 <non-digit> ::= <letter>
               | "-"
 ```
-```javascript
+``` javascript
 [A-Za-z-]
 ```
 
 ### digits
-```bnf
+``` bnf
 <digits> ::= <digit>
            | <digit> <digits>
 ```
-```javascript
+``` javascript
 \d+
 ```
 
 ### digit
-```bnf
+``` bnf
 <digit> ::= "0"
           | <positive digit>
 ```
-```javascript
+``` javascript
 \d
 ```
 
 ### positive digit
-```bnf
+``` bnf
 <positive digit> ::= "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
 ```
-```javascript
+``` javascript
 [1-9]
 ```
 
 ### letter
-```bnf
+``` bnf
 <letter> ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J"
            | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T"
            | "U" | "V" | "W" | "X" | "Y" | "Z" | "a" | "b" | "c" | "d"
@@ -256,6 +249,6 @@ optimized:
            | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x"
            | "y" | "z"
 ```
-```javascript
+``` javascript
 [A-Za-z]
 ```
