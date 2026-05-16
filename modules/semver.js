@@ -89,10 +89,10 @@ export const compareSemVer = (version, base, strict = false) => {
   if (!isString(base)) {
     throw new TypeError(`Expected String but got ${getType(base)}.`);
   }
-  if (!isValidSemVer(version, !!strict)) {
+  if (!isValidSemVer(version, strict)) {
     throw new Error(`Invalid version string: ${version}`);
   }
-  if (!isValidSemVer(base, !!strict)) {
+  if (!isValidSemVer(base, strict)) {
     throw new Error(`Invalid version string: ${base}`);
   }
   let result;
@@ -142,7 +142,7 @@ export const compareSemVer = (version, base, strict = false) => {
                    (Number.isInteger(vPart) && isString(bPart))) {
           result = -1;
         } else if (vPart !== bPart && isString(vPart) && isString(bPart)) {
-          result = vPart.localeCompare(bPart);
+          result = vPart < bPart ? -1 : 1;
         } else if (Number.isInteger(vPart) && Number.isInteger(bPart)) {
           if (vPart > bPart) {
             result = 1;
@@ -170,7 +170,7 @@ export const parseSemVer = (version, strict = false) => {
   if (!isString(version)) {
     throw new TypeError(`Expected String but got ${getType(version)}.`);
   }
-  const matches = isValidSemVer(version, !!strict);
+  const matches = isValidSemVer(version, strict);
   let major, minor, patch, pre, build;
   if (matches) {
     const reg = strict ? REGEXP_SEMVER_STRICT : REGEXP_SEMVER;
