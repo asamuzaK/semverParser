@@ -15,7 +15,7 @@ A lightweight parser to parse, verify, and compare [Semantic Versioning 2.0.0](h
 
 ## Install
 
-``` shell
+``` console
 npm i semver-parser
 ```
 
@@ -84,7 +84,7 @@ Compares two versions in SemVer format.
 The regular expressions used in this parser are translated from the [Backus–Naur Form Grammar for Valid SemVer Versions](https://github.com/mojombo/semver/blob/master/semver.md#backusnaur-form-grammar-for-valid-semver-versions)
 
 ### valid semver
-``` bnf
+``` ebnf
 <valid semver> ::= <version core>
                  | <version core> "-" <pre-release>
                  | <version core> "+" <build>
@@ -95,7 +95,7 @@ The regular expressions used in this parser are translated from the [Backus–Na
 ```
 
 ### version core
-``` bnf
+``` ebnf
 <version core> ::= <major> "." <minor> "." <patch>
 ```
 ``` javascript
@@ -103,7 +103,7 @@ The regular expressions used in this parser are translated from the [Backus–Na
 ```
 
 ### major / minor / patch
-``` bnf
+``` ebnf
 <major> ::= <numeric identifier>
 ```
 ``` javascript
@@ -111,7 +111,7 @@ The regular expressions used in this parser are translated from the [Backus–Na
 ```
 
 ### pre-release
-``` bnf
+``` ebnf
 <pre-release> ::= <dot-separated pre-release identifiers>
 ```
 ``` javascript
@@ -119,7 +119,7 @@ The regular expressions used in this parser are translated from the [Backus–Na
 ```
 
 ### dot-separated pre-release identifiers
-``` bnf
+``` ebnf
 <dot-separated pre-release identifiers> ::= <pre-release identifier>
                                           | <pre-release identifier> "." <dot-separated pre-release identifiers>
 ```
@@ -128,7 +128,7 @@ The regular expressions used in this parser are translated from the [Backus–Na
 ```
 
 ### build
-``` bnf
+``` ebnf
 <build> ::= <dot-separated build identifiers>
 ```
 ``` javascript
@@ -136,7 +136,7 @@ The regular expressions used in this parser are translated from the [Backus–Na
 ```
 
 ### dot-separated build identifiers
-``` bnf
+``` ebnf
 <dot-separated build identifiers> ::= <build identifier>
                                     | <build identifier> "." <dot-separated build identifiers>
 ```
@@ -145,7 +145,7 @@ The regular expressions used in this parser are translated from the [Backus–Na
 ```
 
 ### pre-release identifier
-``` bnf
+``` ebnf
 <pre-release identifier> ::= <alphanumeric identifier>
                            | <numeric identifier>
 ```
@@ -154,7 +154,7 @@ The regular expressions used in this parser are translated from the [Backus–Na
 ```
 
 ### build identifier
-``` bnf
+``` ebnf
 <build identifier> ::= <alphanumeric identifier>
                      | <digits>
 ```
@@ -163,7 +163,7 @@ The regular expressions used in this parser are translated from the [Backus–Na
 ```
 
 ### alphanumeric identifier
-``` bnf
+``` ebnf
 <alphanumeric identifier> ::= <non-digit>
                             | <non-digit> <identifier characters>
                             | <identifier characters> <non-digit>
@@ -178,7 +178,7 @@ optimized:
 ```
 
 ### numeric identifier
-``` bnf
+``` ebnf
 <numeric identifier> ::= "0"
                        | <positive digit>
                        | <positive digit> <digits>
@@ -188,7 +188,7 @@ optimized:
 ```
 
 ### identifier characters
-``` bnf
+``` ebnf
 <identifier characters> ::= <identifier character>
                           | <identifier character> <identifier characters>
 ```
@@ -197,7 +197,7 @@ optimized:
 ```
 
 ### identifier character
-``` bnf
+``` ebnf
 <identifier character> ::= <digit>
                          | <non-digit>
 ```
@@ -206,7 +206,7 @@ optimized:
 ```
 
 ### non-digit
-``` bnf
+``` ebnf
 <non-digit> ::= <letter>
               | "-"
 ```
@@ -215,7 +215,7 @@ optimized:
 ```
 
 ### digits
-``` bnf
+``` ebnf
 <digits> ::= <digit>
            | <digit> <digits>
 ```
@@ -224,7 +224,7 @@ optimized:
 ```
 
 ### digit
-``` bnf
+``` ebnf
 <digit> ::= "0"
           | <positive digit>
 ```
@@ -233,7 +233,7 @@ optimized:
 ```
 
 ### positive digit
-``` bnf
+``` ebnf
 <positive digit> ::= "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
 ```
 ``` javascript
@@ -241,7 +241,7 @@ optimized:
 ```
 
 ### letter
-``` bnf
+``` ebnf
 <letter> ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J"
            | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T"
            | "U" | "V" | "W" | "X" | "Y" | "Z" | "a" | "b" | "c" | "d"
