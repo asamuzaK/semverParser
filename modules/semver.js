@@ -136,10 +136,13 @@ export const compareSemVer = (version, base, strict = false) => {
       while (i < l) {
         const vPart = vPreParts[i];
         const bPart = bPreParts[i];
-        if ((vPart && !bPart) || (isString(vPart) && Number.isInteger(bPart))) {
+        if (vPart === undefined && bPart !== undefined) {
+          result = -1;
+        } else if (vPart !== undefined && bPart === undefined) {
           result = 1;
-        } else if ((!vPart && bPart) ||
-                   (Number.isInteger(vPart) && isString(bPart))) {
+        } else if (isString(vPart) && Number.isInteger(bPart)) {
+          result = 1;
+        } else if (Number.isInteger(vPart) && isString(bPart)) {
           result = -1;
         } else if (vPart !== bPart && isString(vPart) && isString(bPart)) {
           result = vPart < bPart ? -1 : 1;
