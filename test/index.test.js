@@ -4,7 +4,10 @@ import { describe, it } from 'mocha';
 
 /* test */
 import {
-  compareSemVer, isValidSemVer, parseSemVer, promises
+  compareSemVer,
+  isValidSemVer,
+  parseSemVer,
+  promises
 } from '../index.js';
 
 describe('Is Valid Semver', () => {
@@ -13,8 +16,11 @@ describe('Is Valid Semver', () => {
   });
 
   it('should throw', () => {
-    assert.throws(() => isValidSemVer(),
-      TypeError, 'Expected String but got Undefined.');
+    assert.throws(
+      () => isValidSemVer(),
+      TypeError,
+      'Expected String but got Undefined.'
+    );
   });
 
   it('should get result', () => {
@@ -34,8 +40,11 @@ describe('Compare SemVer', () => {
   });
 
   it('should throw', () => {
-    assert.throws(() => compareSemVer(),
-      TypeError, 'Expected String but got Undefined.');
+    assert.throws(
+      () => compareSemVer(),
+      TypeError,
+      'Expected String but got Undefined.'
+    );
   });
 
   it('should get result', () => {
@@ -50,8 +59,11 @@ describe('Parse SemVer', () => {
   });
 
   it('should throw', () => {
-    assert.throws(() => parseSemVer(),
-      TypeError, 'Expected String but got Undefined.');
+    assert.throws(
+      () => parseSemVer(),
+      TypeError,
+      'Expected String but got Undefined.'
+    );
   });
 
   it('should get result', () => {
@@ -76,8 +88,10 @@ describe('Compare SemVer (async)', () => {
 
   it('should throw', async () => {
     await func().catch(e => {
-      assert.deepStrictEqual(e,
-        new TypeError('Expected String but got Undefined.'));
+      assert.deepStrictEqual(
+        e,
+        new TypeError('Expected String but got Undefined.')
+      );
     });
   });
 
@@ -95,8 +109,10 @@ describe('Is Valid SemVer String (async)', () => {
 
   it('should throw', async () => {
     await func().catch(e => {
-      assert.deepStrictEqual(e,
-        new TypeError('Expected String but got Undefined.'));
+      assert.deepStrictEqual(
+        e,
+        new TypeError('Expected String but got Undefined.')
+      );
     });
   });
 
@@ -119,8 +135,10 @@ describe('Parse SemVer String (async)', () => {
 
   it('should throw', async () => {
     await func().catch(e => {
-      assert.deepStrictEqual(e,
-        new TypeError('Expected String but got Undefined.'));
+      assert.deepStrictEqual(
+        e,
+        new TypeError('Expected String but got Undefined.')
+      );
     });
   });
 

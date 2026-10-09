@@ -326,8 +326,10 @@ describe('Compare SemVer', () => {
   });
 
   it('should be greater than 0', () => {
-    assert.strictEqual(compareSemVer('1.0.9007199254740991', '1.0.0') > 0,
-      true);
+    assert.strictEqual(
+      compareSemVer('1.0.9007199254740991', '1.0.0') > 0,
+      true
+    );
   });
 
   it('should be greater than 0', () => {
@@ -335,8 +337,10 @@ describe('Compare SemVer', () => {
   });
 
   it('should be greater than 0', () => {
-    assert.strictEqual(compareSemVer('1.0.0', '1.0.0-9007199254740992') > 0,
-      true);
+    assert.strictEqual(
+      compareSemVer('1.0.0', '1.0.0-9007199254740992') > 0,
+      true
+    );
   });
 
   it('should be greater than 0', () => {
@@ -356,8 +360,10 @@ describe('Compare SemVer', () => {
   });
 
   it('should be less than 0', () => {
-    assert.strictEqual(compareSemVer('1.0.0-beta.1.11', '1.0.0-beta.1.2') > 0,
-      true);
+    assert.strictEqual(
+      compareSemVer('1.0.0-beta.1.11', '1.0.0-beta.1.2') > 0,
+      true
+    );
   });
 
   it('should be less than 0', () => {
@@ -409,23 +415,28 @@ describe('Compare SemVer', () => {
   });
 
   it('should be less than 0', () => {
-    assert.strictEqual(compareSemVer('1.0.0-alpha', '1.0.0-alpha.1') < 0,
-      true);
+    assert.strictEqual(compareSemVer('1.0.0-alpha', '1.0.0-alpha.1') < 0, true);
   });
 
   it('should be less than 0', () => {
-    assert.strictEqual(compareSemVer('1.0.0-alpha', '1.0.0-alpha.1', true) < 0,
-      true);
+    assert.strictEqual(
+      compareSemVer('1.0.0-alpha', '1.0.0-alpha.1', true) < 0,
+      true
+    );
   });
 
   it('should be less than 0', () => {
-    assert.strictEqual(compareSemVer('1.0.0-alpha.1', '1.0.0-alpha.beta') < 0,
-      true);
+    assert.strictEqual(
+      compareSemVer('1.0.0-alpha.1', '1.0.0-alpha.beta') < 0,
+      true
+    );
   });
 
   it('should be less than 0', () => {
-    assert.strictEqual(compareSemVer('1.0.0-alpha.beta', '1.0.0-beta') < 0,
-      true);
+    assert.strictEqual(
+      compareSemVer('1.0.0-alpha.beta', '1.0.0-beta') < 0,
+      true
+    );
   });
 
   it('should be less than 0', () => {
@@ -433,18 +444,21 @@ describe('Compare SemVer', () => {
   });
 
   it('should be less than 0', () => {
-    assert.strictEqual(compareSemVer('1.0.0-beta.2', '1.0.0-beta.11') < 0,
-      true);
+    assert.strictEqual(
+      compareSemVer('1.0.0-beta.2', '1.0.0-beta.11') < 0,
+      true
+    );
   });
 
   it('should be less than 0', () => {
-    assert.strictEqual(compareSemVer('1.0.0-beta.1.2', '1.0.0-beta.1.11') < 0,
-      true);
+    assert.strictEqual(
+      compareSemVer('1.0.0-beta.1.2', '1.0.0-beta.1.11') < 0,
+      true
+    );
   });
 
   it('should be less than 0', () => {
-    assert.strictEqual(compareSemVer('1.0.0-beta.11', '1.0.0-rc.1') < 0,
-      true);
+    assert.strictEqual(compareSemVer('1.0.0-beta.11', '1.0.0-rc.1') < 0, true);
   });
 
   it('should be less than 0', () => {
@@ -807,22 +821,25 @@ describe('Compare SemVer (async)', () => {
 
   it('should throw', async () => {
     await func().catch(e => {
-      assert.deepStrictEqual(e,
-        new TypeError('Expected String but got Undefined.'));
+      assert.deepStrictEqual(
+        e,
+        new TypeError('Expected String but got Undefined.')
+      );
     });
   });
 
   it('should throw', async () => {
     await func('v1.0.0').catch(e => {
-      assert.deepStrictEqual(e,
-        new TypeError('Expected String but got Undefined.'));
+      assert.deepStrictEqual(
+        e,
+        new TypeError('Expected String but got Undefined.')
+      );
     });
   });
 
   it('should throw', async () => {
     await func('v1.0.0', 'v1.0.1', true).catch(e => {
-      assert.deepStrictEqual(e,
-        new Error('Invalid version string: v1.0.0'));
+      assert.deepStrictEqual(e, new Error('Invalid version string: v1.0.0'));
     });
   });
 
@@ -840,8 +857,10 @@ describe('Is Valid SemVer String (async)', () => {
 
   it('should throw', async () => {
     await func().catch(e => {
-      assert.deepStrictEqual(e,
-        new TypeError('Expected String but got Undefined.'));
+      assert.deepStrictEqual(
+        e,
+        new TypeError('Expected String but got Undefined.')
+      );
     });
   });
 
@@ -864,8 +883,10 @@ describe('Parse SemVer String (async)', () => {
 
   it('should throw', async () => {
     await func().catch(e => {
-      assert.deepStrictEqual(e,
-        new TypeError('Expected String but got Undefined.'));
+      assert.deepStrictEqual(
+        e,
+        new TypeError('Expected String but got Undefined.')
+      );
     });
   });
 

@@ -15,8 +15,7 @@ const PRE_PART = `(?:${ALPHA_NUM}|${INT})`;
 const PRE = `${PRE_PART}(?:\\.${PRE_PART})*`;
 const BUILD_PART = `(?:${ALPHA_NUM}|\\d+)`;
 const BUILD = `${BUILD_PART}(?:\\.${BUILD_PART})*`;
-const SEMVER =
-  `((?:${INT})(?:\\.(?:${INT})){2})(?:-(${PRE}))?(?:\\+(${BUILD}))?`;
+const SEMVER = `((?:${INT})(?:\\.(?:${INT})){2})(?:-(${PRE}))?(?:\\+(${BUILD}))?`;
 const REGEXP_INT = new RegExp(`^(?:${INT})$`);
 const REGEXP_SEMVER = new RegExp(`^v?${SEMVER}$`, 'i');
 const REGEXP_SEMVER_STRICT = new RegExp(`^${SEMVER}$`, 'i');
@@ -102,10 +101,12 @@ export const compareSemVer = (version, base, strict = false) => {
     const reg = strict ? REGEXP_SEMVER_STRICT : REGEXP_SEMVER;
     const [, vRel, vPre] = version.match(reg);
     const [, bRel, bPre] = base.match(reg);
-    const [vMajor, vMinor, vPatch] =
-      vRel.split('.').map(part => parseVersionPart(part));
-    const [bMajor, bMinor, bPatch] =
-      bRel.split('.').map(part => parseVersionPart(part));
+    const [vMajor, vMinor, vPatch] = vRel
+      .split('.')
+      .map(part => parseVersionPart(part));
+    const [bMajor, bMinor, bPatch] = bRel
+      .split('.')
+      .map(part => parseVersionPart(part));
     if (vMajor > bMajor) {
       result = 1;
     } else if (vMajor < bMajor) {
@@ -125,12 +126,12 @@ export const compareSemVer = (version, base, strict = false) => {
     } else if (vPre && !bPre) {
       result = -1;
     } else {
-      const vPreParts = vPre.split('.').map(part =>
-        parseVersionPart(part, true)
-      );
-      const bPreParts = bPre.split('.').map(part =>
-        parseVersionPart(part, true)
-      );
+      const vPreParts = vPre
+        .split('.')
+        .map(part => parseVersionPart(part, true));
+      const bPreParts = bPre
+        .split('.')
+        .map(part => parseVersionPart(part, true));
       const l = Math.max(vPreParts.length, bPreParts.length);
       let i = 0;
       while (i < l) {
@@ -187,7 +188,13 @@ export const parseSemVer = (version, strict = false) => {
     }
   }
   return {
-    version, matches, major, minor, patch, pre, build
+    version,
+    matches,
+    major,
+    minor,
+    patch,
+    pre,
+    build
   };
 };
 

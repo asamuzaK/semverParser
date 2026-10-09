@@ -1,2 +1,2 @@
-export function getType(o: object): string;
-export function isString(o: object): boolean;
+export declare const getType: (o: object) => string;
+export declare const isString: (o: object) => boolean;

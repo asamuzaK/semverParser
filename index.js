@@ -8,5 +8,8 @@
  */
 
 export {
-  compareSemVer, isValidSemVer, parseSemVer, promises
+  compareSemVer,
+  isValidSemVer,
+  parseSemVer,
+  promises
 } from './modules/semver.js';
